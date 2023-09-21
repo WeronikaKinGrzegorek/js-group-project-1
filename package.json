@@ -5,7 +5,7 @@
   "homepage": "https://weronikakingrzegorek.github.io/js-group-project-1",
   "scripts": {
     "dev": "parcel src/*.html",
-    "build": "parcel build src/*.html --public-url/js-group-project-1"
+    "build": "parcel build src/*.html --public-url /js-group-project-1"
   },
   "repository": {
     "type": "git",
