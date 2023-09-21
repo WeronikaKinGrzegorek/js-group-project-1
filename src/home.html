@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="EN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>my-library</title>
+    <link rel="stylesheet" href="./filmoteka.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="header__box">
+          <a class="logo" href="./home.html">Filmoteka</a>
+          <nav class="header__nav">
+            <a href="./home.html">HOME</a>
+            <a href="./my_library.html">MY LIBRARY</a>
+          </nav>
+        </div>
+
+        <form class="search-form" id="search-form">
+          <input type="text" name="searchQuery" autocomplete="off" placeholder="Movie search" />
+          <!-- lupka  -->
+        </form>
+        <p class="warning">Search result not successful. Enter the correct movie name</p>
+      </div>
+    </header>
+    <main>
+      <div class="container">
+        <div class="gallery"></div>
+        <!-- Tutaj będzie wyświetlana biblioteka filmów z API -->
+      </div>
+    </main>
+    <footer>
+      © 2020 | All Rights Reserved | Developed with ❤️ <a href="#" id="goit-link">GoIT Students</a>
+    </footer>
+  </body>
+</html>
