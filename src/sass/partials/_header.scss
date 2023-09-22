@@ -16,6 +16,7 @@
   
       background-position: center;
       margin: 0 auto;
+      padding:30px 0 ;
   }
   .header__box {
     display: flex;
@@ -24,17 +25,35 @@
     align-items: center;
   
   }
+  .header__svg{
+    fill:getColor("deafult-2");
+  }
 .logo{
   display:none;
+  @include tablet {
+    display:block;
+    color: getColor("text-1");
+    text-decoration: none;
+  }
+  @include desktop {
+    display:block;
+  }
+}
+.nav-item{
+  text-decoration: none;
+  color: getColor("text-1");
+  line-height: 1.1;
+  letter-spacing: 0.02em;
 }
   .header__nav {
-    font-weight: 500;
-      font-size: 14px;
-      line-height: 1.1;
-      letter-spacing: 0.02em;
-      text-decoration: none;
-      color: getColor("text-1");
-      vertical-align: middle;
+    display: flex;
+    gap:40px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center
+  
+      
+     
   }
   // .search-form {
   //   display: flex;

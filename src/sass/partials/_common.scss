@@ -4,16 +4,16 @@
   }
   body {
     font-family: "Roboto", sans-serif;
-    color: getColor("deafult-1");
-    font-weight: 400;
-    font-size: 16px;
+    color: getColor("text-2");
+    font-weight: 500;
+    font-size: 12px;
   }
   
   .container {
     max-width: 480px;
     margin: 0 auto;
     width: 100%;
-    padding: 0 15px;
+    padding: 0 20px;
   
     @include tablet {
       max-width: 768px;
