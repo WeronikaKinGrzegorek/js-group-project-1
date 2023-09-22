@@ -13,12 +13,13 @@ body {
   max-width: 580px;
   margin: 0 auto;
   width: 100%;
-  padding: 20px ;
+  padding: 20px;
 
   @include tablet {
     max-width: 768px;
   }
   @include desktop {
     max-width: 1200px;
+ 
   }
 }
