@@ -1,8 +1,11 @@
 
 footer {
-  display: none;
-    background-color: #6e6868;
-    color: black;
-    padding: 3vw;
+
+    background-color:getColor('footer-bg');
     text-align: center;
+    color: getColor('text-3');
+    
+  }
+  .footer-text{
+    color: getColor('text-3');
   }
