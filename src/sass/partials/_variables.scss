@@ -1,19 +1,18 @@
 // zamiast map-get($color, 'background');
 @function getColor($key) {
-    @return map-get($colors, $key);
-  }
+  @return map-get($colors, $key);
+}
 
-  $colors: (
-  "deafult-1": #212121,
-  "deafult-2": #ffffff,
+$colors: (
+  'deafult-1': #212121,
+  'deafult-2': #ffffff,
 
-  "text-1": #ffffff,
-  "text-2": #212121,
-  "active": #FF6B01,
-  "underline":#FF6B08,
+  'text-1': #ffffff,
+  'text-2': #212121,
+  'text-3': #545454,
+  'active': #ff6b01,
+  'underline': #ff6b08,
 
-  "button-activebg": #FF6B08,
- 
-
-
+  'button-activebg': #ff6b08,
+  'footer-bg': #f7f7f7,
 );
