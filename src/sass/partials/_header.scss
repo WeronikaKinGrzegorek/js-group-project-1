@@ -18,6 +18,10 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  @include tablet {
+    justify-content: flex-start;
+    align-items: baseline;
+  }
 }
 .header__svg {
   fill: getColor('deafult-2');
@@ -29,9 +33,11 @@
     font-size: 30px;
     color: getColor('text-1');
     text-decoration: none;
+    padding-left: 10px;
+    padding-right: 390px;
   }
   @include desktop {
-    display: block;
+    padding-right: 830px;
   }
 }
 .nav-item {
@@ -52,20 +58,20 @@
   padding-top: 50px;
   display: flex;
   justify-content: flex-start;
- 
- 
-  // @include tablet {
-  //   display: flex;
-  //    max-width: 340px;
-  //   justify-content: center;
-  // }
+
+  @include tablet {
+    display: flex;
+    //  max-width: 340px;
+    justify-content: center;
+  }
   // @include desktop {
-    
+
   // }
 }
 
 input {
   width: 100%;
+  height: 20px;
   background: none;
   border-bottom: 0.5px solid rgba(255, 255, 255, 1);
 }
@@ -73,7 +79,7 @@ input {
   fill: getColor('deafult-2');
   position: absolute;
   bottom: 6px;
-  right: 20px;
+  right: 12px;
 }
 .buttons {
   display: flex;
