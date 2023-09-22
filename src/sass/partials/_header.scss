@@ -55,16 +55,20 @@
       
      
   }
-  // .search-form {
-  //   display: flex;
-  //   justify-content: center;
-  // }
+  .search-form {
+    padding-top: 50px;
+    display: flex;
+    justify-content:flex-start;
+  }
 
-  // input {
-  //   max-width: 1280px;
-  //   width: 100%;
-  //   background: none;
-  // }
+  input {
+
+    width: 100%;
+    background: none;
+  }
+  .search-svg{
+    fill:getColor("deafult-2");
+  }
   // .buttons {
   //   display: flex;
   //   justify-content: center;
