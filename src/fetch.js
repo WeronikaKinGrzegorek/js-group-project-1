@@ -9,12 +9,12 @@ const options = {
 
 export async function fetchMovies(query, page = 1) {
     const searchQuery = query.trim()
-    
+
     if(searchQuery === '') {
    Notiflix.Notify.failure('Please, enter key word')
    return null
     }
-} try {
+ try {
 const response = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${searchQuery}&page=${page}`, options)
 return response.data
 } catch (error) {
@@ -22,4 +22,4 @@ return response.data
     Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.')
     return null
 }
-
+}
