@@ -1,17 +1,14 @@
-import { fetchMovies } from "./fetch"
+import { fetchMovies } from './js/fetch';
 
 // import './sass/main.scss';
-const form = document.querySelector('.search-form')
-const searchField = document.querySelector('[name="searchQuery"]')
+const form = document.querySelector('.search-form');
+const searchField = document.querySelector('[name="searchQuery"]');
 
-let page = 1
+let page = 1;
 
-form.addEventListener('submit', function(event) {
-    event.preventDefault()
-    const inputValue = searchField.value 
-    page = 1
-    const movies = fetchMovies(inputValue)
-  
-})
-
-
+form.addEventListener('submit', function (event) {
+  event.preventDefault();
+  const inputValue = searchField.value;
+  page = 1;
+  const movies = fetchMovies(inputValue);
+});
