@@ -1,7 +1,10 @@
 import axios from 'axios';
 import Notiflix from 'notiflix';
 
-const apiKey = '55e390226d2f3f6feba5afe684a5a044';
+
+const apiKey =
+  '55e390226d2f3f6feba5afe684a5a044';
+
 
 const options = {
   method: 'GET',

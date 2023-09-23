@@ -6,7 +6,10 @@ const options = {
   params: { language: 'en' },
   headers: {
     accept: 'application/json',
-    Authorization: 'Bearer 55e390226d2f3f6feba5afe684a5a044',
+
+    Authorization:
+      '55e390226d2f3f6feba5afe684a5a044',
+
   },
 };
 
