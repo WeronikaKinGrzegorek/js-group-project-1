@@ -5,7 +5,7 @@ import { fetchGenres } from './fetch-genres';
 
 const BASE_POSTER_PATH = 'https://image.tmdb.org/t/p/w500';
 
-const moviesGallery = document.querySelector('.movies__list');
+const moviesGallery = document.querySelector('.gallery__list');
 
 export async function drawMovies(inputValue) {
   const genres = await fetchGenres();
@@ -29,9 +29,9 @@ export async function drawMovies(inputValue) {
         })
         .join(', ');
 
-      return `<li class="movies__list-item">
+      return `<li class="gallery__list-item">
         <img src="${posterPath}" alt="${title}" movie-id="${id}"/>
-        <h2>${title}</h2>
+        <h3>${title.toUpperCase()}</h3>
         <p>${genreNames} | <span>${release_date.slice(0, 4)}</span></p>
       </li>`;
     })

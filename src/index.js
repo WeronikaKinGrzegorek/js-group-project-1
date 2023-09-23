@@ -5,7 +5,7 @@ import { drawMovies } from './js/draw-movie';
 const form = document.querySelector('.search-form');
 const searchField = document.querySelector('[name="searchQuery"]');
 
-const moviesGallery = document.querySelector('.movies__list');
+const moviesGallery = document.querySelector('.gallery__list');
 
 let page = 1;
 

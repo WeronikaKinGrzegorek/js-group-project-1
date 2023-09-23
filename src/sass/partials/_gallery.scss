@@ -1,0 +1,35 @@
+.gallery {
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__list {
+    list-style: none;
+
+    &-item {
+      border-radius: 5px;
+      height: 443px;
+      margin-bottom: 20px;
+      width: 280px;
+
+      > img {
+        display: flex;
+        border-radius: 5px;
+        cursor: pointer;
+        height: 402px;
+        width: 280px;
+      }
+      > h3 {
+        font-size: 12px;
+        line-height: 16px;
+        margin-top: 10px;
+      }
+      > p {
+        color: getColor('button-activebg');
+        font-size: 12px;
+        line-height: 16px;
+      }
+    }
+  }
+}
