@@ -4,22 +4,35 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>home</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@700&family=Roboto:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./sass/main.scss" />
   </head>
   <body>
     <header class="header">
       <div class="container">
         <div class="header__box">
+          <svg class="header__svg" width="24" height="24">
+            <use href="./images/symbol.svg#icon-video-camera"></use>
+          </svg>
           <a class="logo" href="./index.html">Filmoteka</a>
           <nav class="header__nav">
-            <a href="./index.html">HOME</a>
-            <a href="./my_library.html">MY LIBRARY</a>
+            <div class="header__underline">
+            <a class="nav-item" href="./index.html">HOME</a>
+            </div>
+            <a class="nav-item" href="./my_library.html">MY LIBRARY</a>
           </nav>
         </div>
 
         <form class="search-form" id="search-form">
           <input type="text" name="searchQuery" autocomplete="off" placeholder="Movie search" />
-          <!-- lupka  -->
+          <svg class="search__svg" width="12" height="12">
+            <use href="./images/symbol.svg#icon-search"></use>
+          </svg>
         </form>
         <p class="warning">Search result not successful. Enter the correct movie name</p>
       </div>
@@ -27,11 +40,17 @@
     <main>
       <div class="container">
         <div class="gallery"></div>
+
         <!-- Tutaj będzie wyświetlana biblioteka filmów z API -->
       </div>
     </main>
     <footer>
-      © 2020 | All Rights Reserved | Developed with ❤️ <a href="#" id="goit-link">GoIT Students</a>
+      <div class="container">
+        <p>
+          © 2023 | All Rights Reserved | Developed with ❤️
+          <a class="footer-text" href="#" id="goit-link">GoIT Students</a>
+        </p>
+      </div>
     </footer>
   </body>
 </html>

@@ -1,0 +1,16 @@
+
+footer {
+
+    background-color:getColor('footer-bg');
+    text-align: center;
+    color: getColor('text-3');
+    font-size: 14px;
+    font-weight: 400;
+    @include desktop {
+      font-size: 16px;
+    }
+    
+  }
+  .footer-text{
+    color: getColor('text-3');
+  }

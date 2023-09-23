@@ -1,8 +1,12 @@
 <!DOCTYPE html>
-<html lang="EN">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@700&family=Roboto:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
     <title>my-library</title>
     <link rel="stylesheet" href="./sass/main.scss" />
   </head>
@@ -10,26 +14,35 @@
     <header class="header">
       <div class="container">
         <div class="header__box">
+          <a href="./index.html"
+            ><svg class="header__svg" width="24" height="24">
+              <use href="./images/symbol.svg#icon-video-camera"></use></svg></a>
           <a class="logo" href="./index.html">Filmoteka</a>
           <nav class="header__nav">
-            <a href="./index.html">HOME</a>
-            <a href="./my_library.html">MY LIBRARY</a>
+            <a class="nav-item" href="./index.html">HOME</a>
+            <div class="header__underline">
+            <a class="nav-item" href="./my_library.html">MY LIBRARY</a>
+          </div>
           </nav>
         </div>
         <div class="buttons">
-          <button class="button">Watched</button>
-          <button class="button">Queue</button>
+          <button class="button">WATCHED</button>
+          <button class="button">QUEUE</button>
         </div>
       </div>
     </header>
     <main>
+      <div class="container">
       <div class="library-gallery"></div>
+    </div>
     </main>
     <footer>
       <div class="container">
-        © 2020 | All Rights Reserved | Developed with ❤️
-        <a href="#" id="goit-link">GoIT Students</a>
-      </div>
+      <p >
+        © 2023 | All Rights Reserved | Developed with ❤️
+        <a class="footer-text" href="#" id="goit-link">GoIT Students</a>
+      </p>
+    </div>
     </footer>
   </body>
 </html>
