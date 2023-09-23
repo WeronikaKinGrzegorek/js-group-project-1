@@ -4,7 +4,7 @@
 .header {
   width: 100%;
   border: 1px;
-  background: linear-gradient(to bottom, rgba(47, 48, 58, 0.4), rgba(10, 10, 10, 0.73)),
+  background:
     url(../images/background-home.jpg);
   background-repeat: no-repeat;
   background-size: cover;
@@ -53,6 +53,20 @@
   justify-content: space-between;
   align-items: center;
 }
+.header__underline{
+  position: relative;
+}
+.header__underline:after{
+    content: "";
+    position: absolute;
+    height: 3px;
+    top: 15px;
+    left: 0;
+    right: 0;
+    background-color: getColor("underline");
+    border-radius: 2px;
+  
+}
 .search-form {
   position: relative;
   padding-top: 50px;
@@ -71,7 +85,7 @@
 
 input {
   width: 100%;
-  height: 20px;
+  height: 25px;
   background: none;
   border-bottom: 0.5px solid rgba(255, 255, 255, 1);
 }
@@ -93,6 +107,7 @@ input {
   border-radius: 5px;
   padding: 14px 35px;
   border: 1px solid rgba(255, 255, 255, 1);
+  cursor: pointer;
 }
 .button:hover,
 button:focus {
