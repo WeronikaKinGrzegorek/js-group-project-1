@@ -2,6 +2,8 @@
   display: none;
 }
 .header {
+  position: fixed;
+  z-index: 999;
   &__box {
     display: flex;
     flex-direction: row;
@@ -77,6 +79,7 @@
     }
   }
   @media screen and (min-width: 321px) and (max-width: 768px) {
+    height: 213px;
     background-image: url(../images/home-header-bg-768-1x.jpg);
     @media (min-device-pixel-ratio: 2), (min-resolution: 2dppx), (min-resolution: 192dpi) {
       background-image: url('../images/home-header-bg-768-2x.jpg');
