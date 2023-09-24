@@ -1,6 +1,10 @@
 .gallery {
   margin: 0;
   padding: 0;
+  padding-top: 230px;
+  @include tablet {
+    padding-top: 213px;
+  }
   &__list {
     margin: 0;
     padding: 0;
