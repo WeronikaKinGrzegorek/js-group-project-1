@@ -1,11 +1,32 @@
 .gallery {
-  padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0;
+  margin: 0;
+
+  @include desktop {
+    max-width: 1280px;
+    width: 100%;
+    margin: 0 auto;
+  }
 
   &__list {
     list-style: none;
+
+    @include tablet {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+      width: 704px;
+    }
+
+    @include desktop {
+      gap: 16px;
+      width: 1217px;
+      justify-content: flex-start;
+    }
 
     &-item {
       border-radius: 5px;
@@ -13,12 +34,32 @@
       margin-bottom: 20px;
       width: 280px;
 
+      @include tablet {
+        width: 336px;
+        height: 494px;
+      }
+
+      @include desktop {
+        width: 395px;
+        height: 634px;
+      }
+
       > img {
         display: flex;
         border-radius: 5px;
         cursor: pointer;
         height: 402px;
         width: 280px;
+
+        @include tablet {
+          width: 336px;
+          height: 455px;
+        }
+
+        @include desktop {
+          width: 395px;
+          height: 574px;
+        }
       }
       > h3 {
         font-size: 12px;

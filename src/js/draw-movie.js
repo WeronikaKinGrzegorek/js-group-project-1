@@ -20,7 +20,7 @@ export async function drawMovies(inputValue) {
     .map(({ backdrop_path, genre_ids, id, release_date, title }) => {
       const posterPath = backdrop_path
         ? `${BASE_POSTER_PATH}${backdrop_path}`
-        : 'https://via.placeholder.com/500x750';
+        : 'https://moviereelist.com/wp-content/uploads/2019/07/poster-placeholder.jpg';
 
       const genreNames = genre_ids
         .map(genreId => {
