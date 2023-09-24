@@ -1,0 +1,84 @@
+.gallery {
+  margin: 0;
+  padding: 0;
+  &__list {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    // max-width: 280px;
+
+    background-image: repeating-linear-gradient(
+      to right,
+      getColor('footer-bg'),
+      getColor('footer-bg') 130px,
+      getColor('text-1') 130px,
+      getColor('text-1') 150px
+    );
+
+    // @include tablet {
+    // }
+    // @include desktop {
+    // }
+
+    @include tablet {
+      gap: 32px;
+      // max-width: 336px;
+    }
+    @include desktop {
+      gap: 16px;
+      // max-width: 395px;
+    }
+
+    &-item {
+      margin: 0;
+      border-radius: 5px;
+      height: 443px;
+      width: 280px;
+
+      @include tablet {
+        height: 494px;
+        width: 336px;
+      }
+
+      @include desktop {
+        height: 634px;
+        width: 394px;
+      }
+
+      > img {
+        display: block;
+        border-radius: 5px;
+        cursor: pointer;
+        height: 402px;
+        width: 280px;
+        object-fit: cover;
+
+        @include tablet {
+          width: 336px;
+          height: 455px;
+        }
+
+        @include desktop {
+          width: 395px;
+          height: 574px;
+        }
+      }
+      > h3 {
+        font-size: 12px;
+        line-height: 16px;
+        margin-top: 10px;
+      }
+      > p {
+        color: getColor('button-activebg');
+        font-size: 12px;
+        line-height: 16px;
+      }
+    }
+  }
+}
