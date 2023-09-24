@@ -1,5 +1,5 @@
 import { fetchMovies } from './js/fetch';
-import { drawMovies } from './js/draw-movie';
+import { drawMovies } from './js/draw-movie'; 
 
 import './sass/main.scss';
 
