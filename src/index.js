@@ -1,7 +1,8 @@
 import { fetchMovies } from './js/fetch';
 import { drawMovies } from './js/draw-movie';
 
-// import './sass/main.scss';
+import './sass/main.scss';
+
 const form = document.querySelector('.search-form');
 const searchField = document.querySelector('[name="searchQuery"]');
 
