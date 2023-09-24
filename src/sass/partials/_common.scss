@@ -16,7 +16,7 @@ body {
   padding: 20px;
 
   @include tablet {
-   //max-width: 760px;
+   //max-width: 768px;
     padding: 20px 32px;
   }
   @include desktop {

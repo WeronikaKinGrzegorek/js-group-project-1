@@ -2,18 +2,62 @@
   display: none;
 }
 .header {
-  background-color:getColor('footer-bg');
+  background-color: getColor('deafult-1');
 
+  &__box {
   
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  @include tablet {
+    justify-content: space-between;
+    align-items: baseline;
+  }}
+  &__svg {
+    fill: getColor('deafult-2');
+    border-radius: 5px;
+  }
+  &__wrapper {
+    gap: 8px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: baseline;
+    @include desktop {
+      gap: 10px;
+    }
+}
+&__nav {
+  display: flex;
+  gap: 40px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+&__underline {
+  position: relative;
+}
+&__underline:after {
+  content: '';
+  position: absolute;
+  height: 3px;
+  top: 15px;
+  left: 0;
+  right: 0;
+  background-color: getColor('underline');
+  border-radius: 2px;
+}
 }
 
 .index-header {
   background: url(../images/background-home.jpg);
-   width: 100%;
+  width: 100%;
 
   background-repeat: no-repeat;
-   background-size: cover;
-  background-position:center;
+  background-size: cover;
+  background-position: center;
   height: 230px;
 }
 .library-header {
@@ -25,32 +69,7 @@
   background-position: center;
   height: 230px;
 }
-.header__box {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
 
-  @include tablet {
-    justify-content:space-between;
-    align-items: baseline;
-  }
-}
-.header__svg {
-  fill: getColor('deafult-2');
-  border-radius: 5px;
-
-}
-.header__wrapper{
-  gap: 8px;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-items: baseline;
-  @include desktop {
-    gap:10px;
-  }
-}
 
 .logo {
   display: none;
@@ -67,27 +86,8 @@
   line-height: 1.1;
   letter-spacing: 0.02em;
 }
-.header__nav {
-  display: flex;
-  gap: 40px;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-.header__underline {
-  position: relative;
-}
-.header__underline:after {
-  content: '';
-  position: absolute;
-  height: 3px;
-  top: 15px;
-  left: 0;
-  right: 0;
-  background-color: getColor('underline');
-  border-radius: 2px;
-}
-.wrapper-form{
+
+.wrapper-form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -96,11 +96,10 @@
   position: relative;
   width: 100%;
   padding-top: 40px;
-  
 
   @include tablet {
     display: flex;
-      max-width: 390px;
+    max-width: 390px;
     justify-content: center;
   }
   @include desktop {
