@@ -1,6 +1,3 @@
-
-
-
 import { fetchMovies } from './js/fetch';
 import { drawMovies } from './js/draw-movie';
 
@@ -22,4 +19,3 @@ form.addEventListener('submit', function (event) {
   moviesGallery.innerHTML = '';
   drawMovies(inputValue);
 });
-
