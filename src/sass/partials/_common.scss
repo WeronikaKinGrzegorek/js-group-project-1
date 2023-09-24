@@ -16,12 +16,11 @@ body {
   padding: 20px;
 
   @include tablet {
-   //max-width: 760px;
+    //max-width: 760px;
     padding: 20px 32px;
   }
   @include desktop {
     max-width: 1280px;
- 
   }
 }
 img {

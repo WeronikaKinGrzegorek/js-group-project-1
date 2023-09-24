@@ -1,55 +1,63 @@
 .gallery {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
   margin: 0;
-
-  @include desktop {
-    max-width: 1280px;
-    width: 100%;
-    margin: 0 auto;
-  }
-
+  padding: 0;
   &__list {
+    margin: 0;
+    padding: 0;
+    width: 100%;
     list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    // max-width: 280px;
+
+    background-image: repeating-linear-gradient(
+      to right,
+      getColor('footer-bg'),
+      getColor('footer-bg') 130px,
+      getColor('text-1') 130px,
+      getColor('text-1') 150px
+    );
+
+    // @include tablet {
+    // }
+    // @include desktop {
+    // }
 
     @include tablet {
-      display: flex;
-      justify-content: center;
       gap: 32px;
-      flex-wrap: wrap;
-      width: 704px;
+      // max-width: 336px;
     }
-
     @include desktop {
       gap: 16px;
-      width: 1217px;
-      justify-content: flex-start;
+      // max-width: 395px;
     }
 
     &-item {
+      margin: 0;
       border-radius: 5px;
       height: 443px;
-      margin-bottom: 20px;
       width: 280px;
 
       @include tablet {
-        width: 336px;
         height: 494px;
+        width: 336px;
       }
 
       @include desktop {
-        width: 395px;
         height: 634px;
+        width: 394px;
       }
 
       > img {
-        display: flex;
+        display: block;
         border-radius: 5px;
         cursor: pointer;
         height: 402px;
         width: 280px;
+        object-fit: cover;
 
         @include tablet {
           width: 336px;
