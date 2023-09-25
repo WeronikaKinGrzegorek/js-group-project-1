@@ -1,6 +1,6 @@
 import { fetchMovies } from './js/fetch';
 import { drawMovies } from './js/draw-movie'; 
-
+import * as modalMovie from './js/modal-movie';
 import './sass/main.scss';
 
 const form = document.querySelector('.search-form');
