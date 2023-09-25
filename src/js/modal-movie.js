@@ -74,7 +74,7 @@ function closeModal() {
   modal.style.display = 'none';
 }
 
-function handleMovieClick(event) {
+export function handleMovieClick(event) {
   const movieElement = event.target.closest('.movie');
   if (movieElement) {
     const movieIndex = Array.from(moviesContainer.children).indexOf(movieElement);

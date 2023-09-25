@@ -1,13 +1,7 @@
-
-import {
-  showLoader,
-  hideLoader
-} from './js/loader'; // Import funkcji obsługujących loader
-
+import { showLoader, hideLoader } from './js/loader'; // Import funkcji obsługujących loader
 
 import { fetchMovies } from './js/fetch';
-import { drawMovies } from './js/draw-movie'; 
-
+import { drawMovies } from './js/draw-movie';
 import { handleMovieClick } from './js/modal-movie';
 
 import './sass/main.scss';
@@ -29,8 +23,8 @@ form.addEventListener('submit', function (event) {
   console.log(movies);
   moviesGallery.innerHTML = '';
   drawMovies(inputValue);
-  
+
   hideLoader(); // Ukryj loader po zakończeniu wyszukiwania filmów
 });
-document.addEventListener('click', handleMovieClick);
 
+document.addEventListener('click', handleMovieClick);
