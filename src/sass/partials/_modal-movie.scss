@@ -3,11 +3,11 @@ $primary-text-color: #fff;
 $primary-button-color: #333;
 $secondary-button-color: #555;
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-}
+// .container {
+//   max-width: 1200px;
+//   margin: 0 auto;
+//   padding: 20px;
+// }
 
 .movies {
   display: grid;
@@ -52,7 +52,7 @@ button#loadMore {
 .modal {
   display: none;
   position: fixed;
-  z-index: 1;
+  z-index: 3;
   left: 0;
   top: 0;
   width: 100%;
