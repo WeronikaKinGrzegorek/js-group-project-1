@@ -24,6 +24,7 @@
     "posthtml-include": "^1.7.4"
   },
   "dependencies": {
+    "api": "^6.1.1",
     "axios": "^1.5.0",
     "notiflix": "^3.2.6"
   }

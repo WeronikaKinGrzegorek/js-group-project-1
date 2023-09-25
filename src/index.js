@@ -1,13 +1,13 @@
-import {
-  fetchMovies
-} from './js/fetch';
-import {
-  drawMovies
-} from './js/draw-movie';
+
 import {
   showLoader,
   hideLoader
 } from './js/loader'; // Import funkcji obsługujących loader
+
+
+import { fetchMovies } from './js/fetch';
+import { drawMovies } from './js/draw-movie'; 
+import * as modalMovie from './js/modal-movie';
 
 import './sass/main.scss';
 
