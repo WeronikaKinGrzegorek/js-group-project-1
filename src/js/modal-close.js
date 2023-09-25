@@ -3,7 +3,6 @@ const openBtn = document.getElementById('movieModal');
 
 function openModal() {
   modal.style.display = 'block';
-  modal.focus();
 
   document.addEventListener('keydown', closeModalOnEsc);
 
