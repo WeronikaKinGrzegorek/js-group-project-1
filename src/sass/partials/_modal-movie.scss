@@ -1,0 +1,114 @@
+$primary-background-color: #f2f2f2;
+$primary-text-color: #fff;
+$primary-button-color: #333;
+$secondary-button-color: #555;
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.movies {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 20px;
+
+  @media screen and (min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media screen and (min-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.movie {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+button#loadMore {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: $primary-button-color;
+  color: $primary-text-color;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $secondary-button-color;
+  }
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+  background-color: #fff;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  width: 80%;
+  max-width: 800px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  animation: slide-up 0.3s;
+
+  @media screen and (min-width: 768px) {
+    width: 70%;
+  }
+
+  @media screen and (min-width: 1024px) {
+    width: 60%;
+  }
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.modal-left {
+  float: left;
+  width: 40%;
+}
+
+.modal-right {
+  float: right;
+  width: 60%;
+}
+
+.modal-buttons {
+  text-align: right;
+  margin-top: 20px;
+}
+
+@keyframes slide-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
