@@ -1,5 +1,4 @@
 const apiKey = '55e390226d2f3f6feba5afe684a5a044';
-
 const moviesContainer = document.querySelector('.movies');
 const loadMoreButton = document.getElementById('loadMore');
 let currentPage = 1;
@@ -75,19 +74,21 @@ function closeModal() {
   modal.style.display = 'none';
 }
 
-document.addEventListener('click', async event => {
+export function handleMovieClick(event) {
   const movieElement = event.target.closest('.movie');
   if (movieElement) {
     const movieIndex = Array.from(moviesContainer.children).indexOf(movieElement);
     const movieData = data.results[movieIndex];
-    await openModal(movieData);
+    openModal(movieData);
   }
-});
+}
+
+document.addEventListener('click', handleMovieClick);
 
 const modalCloseButton = document.getElementById('modalCloseButton');
 modalCloseButton.addEventListener('click', closeModal);
 
-async function fetchMovies() {
+async function fetchMoviesPopular() {
   const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=${currentPage}`;
   try {
     const response = await fetch(url);
@@ -118,6 +119,6 @@ async function fetchMovies() {
   }
 }
 
-loadMoreButton.addEventListener('click', fetchMovies);
+loadMoreButton.addEventListener('click', fetchMoviesPopular);
 
-fetchMovies();
+fetchMoviesPopular();
