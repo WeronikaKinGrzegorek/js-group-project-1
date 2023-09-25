@@ -1,6 +1,6 @@
 import { fetchMovies } from './js/fetch';
 import { drawMovies } from './js/draw-movie'; 
-import * as modalMovie from './js/modal-movie';
+import { handleMovieClick } from './js/modal-movie';
 import './sass/main.scss';
 
 const form = document.querySelector('.search-form');
@@ -19,3 +19,4 @@ form.addEventListener('submit', function (event) {
   moviesGallery.innerHTML = '';
   drawMovies(inputValue);
 });
+document.addEventListener('click', handleMovieClick);
