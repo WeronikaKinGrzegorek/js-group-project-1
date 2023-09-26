@@ -8,7 +8,7 @@ const form = document.querySelector('.search-form');
 const searchField = document.querySelector('[name="searchQuery"]');
 const moviesGallery = document.querySelector('.gallery__list');
 
-const btnLoadMore = document.getElementById('loadMore');
+const btnLoadMore = document.getElementById('loadMoreSearched');
 
 let inputValue = '';
 
