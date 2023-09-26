@@ -3,11 +3,26 @@ $primary-text-color: #fff;
 $primary-button-color: #333;
 $secondary-button-color: #555;
 
+<<<<<<< Updated upstream
 // .container {
 //   max-width: 1200px;
 //   margin: 0 auto;
 //   padding: 20px;
 // }
+=======
+.gallery-home {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  background-image: repeating-linear-gradient(
+    to right,
+    getColor('footer-bg'),
+    getColor('footer-bg') 130px,
+    getColor('text-1') 130px,
+    getColor('text-1') 150px
+  );
+>>>>>>> Stashed changes
 
 .movies {
   display: grid;
