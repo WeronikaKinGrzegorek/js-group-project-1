@@ -9,8 +9,8 @@ import './sass/main.scss';
 const form = document.querySelector('.search-form');
 const searchField = document.querySelector('[name="searchQuery"]');
 const moviesGallery = document.querySelector('.gallery__list');
-const btnLoadMore = document.getElementById('loadMore');
-let inputValue = ''
+const btnLoadMore = document.getElementById('loadMoreSearched');
+let inputValue = '';
 
 form.addEventListener('submit', function (event) {
   event.preventDefault();
@@ -29,12 +29,11 @@ form.addEventListener('submit', function (event) {
 
 btnLoadMore.addEventListener('click', async () => {
   page += 1;
-  const movies = await fetchMovies(inputValue, page)
-  if(movies && movies.results && movies.results.length > 0) {
-    drawMovies(inputValue, true)
+  const movies = await fetchMovies(inputValue, page);
+  if (movies && movies.results && movies.results.length > 0) {
+    drawMovies(inputValue, true);
   } else {
     btnLoadMore.disabled = true;
-    btnLoadMore.textContent = 'No More Movies'
+    btnLoadMore.textContent = 'No More Movies';
   }
-})
-
+});
