@@ -9,8 +9,8 @@ import './sass/main.scss';
 const form = document.querySelector('.search-form');
 const searchField = document.querySelector('[name="searchQuery"]');
 const moviesGallery = document.querySelector('.gallery__list');
-
-let page = 1;
+const btnLoadMore = document.getElementById('loadMoreSearched');
+let inputValue = '';
 
 form.addEventListener('submit', function (event) {
   event.preventDefault();
@@ -27,4 +27,13 @@ form.addEventListener('submit', function (event) {
   hideLoader(); // Ukryj loader po zakończeniu wyszukiwania filmów
 });
 
-document.addEventListener('click', handleMovieClick);
+btnLoadMore.addEventListener('click', async () => {
+  page += 1;
+  const movies = await fetchMovies(inputValue, page);
+  if (movies && movies.results && movies.results.length > 0) {
+    drawMovies(inputValue, true);
+  } else {
+    btnLoadMore.disabled = true;
+    btnLoadMore.textContent = 'No More Movies';
+  }
+});
