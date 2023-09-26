@@ -1,7 +1,6 @@
-
 import { fetchMovies } from './js/fetch';
 import { drawMovies } from './js/draw-movie';
-
+import { showLoader, hideLoader } from './loader';
 import './sass/main.scss';
 
 const form = document.querySelector('.search-form');
@@ -15,8 +14,6 @@ let inputValue = '';
 form.addEventListener('submit', function (event) {
   event.preventDefault();
   const inputValue = searchField.value;
-  page = 1;
-
 
   const movies = fetchMovies(inputValue);
   console.log(movies);
@@ -40,14 +37,11 @@ btnLoadMore.addEventListener('click', async () => {
 btnLoadMore.addEventListener('click', async () => {
   page += 1;
 
-  const movies = await fetchMovies(inputValue, page)
+  const movies = await fetchMovies(inputValue, page);
   if (movies && movies.results && movies.results.length > 0) {
-    drawMovies(inputValue, true)
-
+    drawMovies(inputValue, true);
   } else {
     btnLoadMore.disabled = true;
     btnLoadMore.textContent = 'No More Movies';
   }
-
-})
-
+});
