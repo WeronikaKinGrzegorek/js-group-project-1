@@ -4,28 +4,73 @@ $primary-button-color: #333;
 $secondary-button-color: #555;
 
 .movies {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 20px;
+  background-image: repeating-linear-gradient(
+    to right,
+    getColor('footer-bg'),
+    getColor('footer-bg') 130px,
+    getColor('text-1') 130px,
+    getColor('text-1') 150px
+  );
+
+  transition: justify-content 0.3s ease;
 
   @media screen and (min-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
+    justify-content: space-between;
+    transition: justify-content 0.2s ease;
   }
 
   @media screen and (min-width: 1024px) {
-    grid-template-columns: repeat(3, 1fr);
+    justify-content: space-between;
+    transition: justify-content 0.2s ease;
   }
 }
 
 .movie {
-  background-color: #fff;
-  border: 1px solid #ccc;
-  padding: 10px;
-  text-align: center;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  text-align: left;
+
+  @media screen and (max-width: 767px) {
+    width: calc(100% - 40px);
+  }
+
+  @media screen and (min-width: 768px) {
+    width: calc(50% - 20px);
+  }
+
+  @media screen and (min-width: 1024px) {
+    width: calc(33.33% - 20px);
+    max-width: 394px;
+  }
 
   img {
-    max-width: 100%;
-    height: auto;
+    display: block;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 100%;
+    object-fit: cover;
+    transition: height 0.3s ease;
+    margin-bottom: 10px;
+
+    @media screen and (max-width: 767px) {
+      height: 443px;
+      height: auto;
+    }
+
+    @media screen and (min-width: 768px) {
+      height: 494px;
+      height: auto;
+    }
+
+    @media screen and (min-width: 1280px) {
+      height: auto;
+      width: 100%;
+    }
   }
 }
 
@@ -82,27 +127,11 @@ button#loadMore {
   font-size: 30px;
   cursor: pointer;
 }
-
-.modal-left {
-  float: left;
-  width: 40%;
+.movie-title {
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
-.modal-right {
-  float: right;
-  width: 60%;
-}
-
-.modal-buttons {
-  text-align: right;
-  margin-top: 20px;
-}
-
-@keyframes slide-up {
-  from {
-    transform: translateY(100%);
-  }
-  to {
-    transform: translateY(0);
-  }
+.movie-info {
+  color: orange;
 }
