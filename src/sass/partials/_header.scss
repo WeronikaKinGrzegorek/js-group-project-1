@@ -22,7 +22,7 @@
     cursor: pointer;
     transition: transform 250ms ease, box-shadow 200ms ease, border 200ms ease;
   }
-  &__svg:hover {
+  &__svg:hover, &__svg:focus {
     fill: getColor('active');
     transform: scale(1.1);
   }
