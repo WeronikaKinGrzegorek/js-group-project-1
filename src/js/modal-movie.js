@@ -32,7 +32,7 @@ async function openModal(movieData) {
   modalPoster.alt = movieData.title;
 
   const modalTitle = modal.querySelector('#modalTitle');
-  modalTitle.textContent = movieData.title;
+  modalTitle.textContent = movieData.title.toUpperCase();
 
   const modalRating = modal.querySelector('#modalRating');
   modalRating.textContent = movieData.vote_average;
@@ -105,10 +105,13 @@ async function fetchMoviesPopular() {
       const releaseYear = formatDate(movie.release_date);
 
       movieElement.innerHTML = `
-        <img src="https://image.tmdb.org/t/p/w300${movie.poster_path}" alt="${movie.title}">
-        <h3>${movie.title}</h3>
-        <p>Genre: ${genreNames.join(', ')}</p>
-        <p>Release Year: ${releaseYear}</p>
+        <div class="movie-content">
+          <img src="https://image.tmdb.org/t/p/w300${movie.poster_path}" alt="${movie.title}">
+          <h3 class="movie-title">${movie.title.toUpperCase()}</h3>
+          <p class="movie-info">
+            ${genreNames.join(', ')} | ${releaseYear}
+          </p>
+        </div>
       `;
       moviesContainer.appendChild(movieElement);
     }
