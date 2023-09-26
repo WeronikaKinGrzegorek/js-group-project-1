@@ -6,11 +6,12 @@ import { fetchGenres } from './fetch-genres';
 const BASE_POSTER_PATH = 'https://image.tmdb.org/t/p/w500';
 
 const moviesGallery = document.querySelector('.gallery__list');
+let page = 1;
 
-export async function drawMovies(inputValue) {
+export async function drawMovies(inputValue, append = false) {
   const genres = await fetchGenres();
   console.log('Genres:', genres);
-  const movies = await fetchMovies(inputValue);
+  const movies = await fetchMovies(inputValue, page);
 
   if (!movies.results || movies.results.length === 0) {
     return;
@@ -37,5 +38,9 @@ export async function drawMovies(inputValue) {
     })
     .join('');
 
-  moviesGallery.insertAdjacentHTML('beforeend', movieList);
+    if(append) {
+      moviesGallery.insertAdjacentHTML('beforeend', movieList);
+    } else {
+   moviesGallery.innerHTML = movieList
+    }
 }
