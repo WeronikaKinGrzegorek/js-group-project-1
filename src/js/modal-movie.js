@@ -1,9 +1,19 @@
+import {
+  showLoader,
+  hideLoader
+} from './loader';
+
+
+const moviesContainer = document.querySelector('.gallery-home');
+
 const apiKey = '55e390226d2f3f6feba5afe684a5a044';
 
-const moviesContainer = document.querySelector('.movies');
+
 const loadMoreButton = document.getElementById('loadMore');
 let currentPage = 1;
 let data;
+
+import { addToQueue } from './add-queue';
 
 async function fetchGenreName(genreId) {
   const genreUrl = `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`;
@@ -33,7 +43,7 @@ async function openModal(movieData) {
   modalPoster.alt = movieData.title;
 
   const modalTitle = modal.querySelector('#modalTitle');
-  modalTitle.textContent = movieData.title;
+  modalTitle.textContent = movieData.title.toUpperCase();
 
   const modalRating = modal.querySelector('#modalRating');
   modalRating.textContent = movieData.vote_average;
@@ -75,19 +85,25 @@ function closeModal() {
   modal.style.display = 'none';
 }
 
-document.addEventListener('click', async event => {
+export function handleMovieClick(event) {
   const movieElement = event.target.closest('.movie');
   if (movieElement) {
     const movieIndex = Array.from(moviesContainer.children).indexOf(movieElement);
     const movieData = data.results[movieIndex];
-    await openModal(movieData);
+
+    addToQueue(movieData);
+
+    openModal(movieData);
   }
-});
+}
+
+document.addEventListener('click', handleMovieClick);
 
 const modalCloseButton = document.getElementById('modalCloseButton');
 modalCloseButton.addEventListener('click', closeModal);
 
-async function fetchMovies() {
+async function fetchMoviesPopular() {
+
   const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=${currentPage}`;
   try {
     const response = await fetch(url);
@@ -104,20 +120,24 @@ async function fetchMovies() {
       const releaseYear = formatDate(movie.release_date);
 
       movieElement.innerHTML = `
-        <img src="https://image.tmdb.org/t/p/w300${movie.poster_path}" alt="${movie.title}">
-        <h3>${movie.title}</h3>
-        <p>Genre: ${genreNames.join(', ')}</p>
-        <p>Release Year: ${releaseYear}</p>
+        <div class="movie-content">
+          <img src="https://image.tmdb.org/t/p/w300${movie.poster_path}" alt="${movie.title}">
+          <h3 class="movie-title">${movie.title.toUpperCase()}</h3>
+          <p class="movie-info">
+            ${genreNames.join(', ')} | ${releaseYear}
+          </p>
+        </div>
       `;
       moviesContainer.appendChild(movieElement);
-    }
 
+    }
+    hideLoader();
     currentPage++;
   } catch (error) {
     console.error('Błąd pobierania danych:', error);
   }
 }
 
-loadMoreButton.addEventListener('click', fetchMovies);
+loadMoreButton.addEventListener('click', fetchMoviesPopular);
 
-fetchMovies();
+fetchMoviesPopular();
