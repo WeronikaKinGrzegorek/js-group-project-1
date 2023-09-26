@@ -1,22 +1,23 @@
 import { Notify } from 'notiflix';
 import 'notiflix/dist/notiflix-3.2.6.min.css';
-import { drawMovies } from './draw-movie';
+import { handleMovieClick } from './modal-movie';
 
 const addToQueueButton = document.querySelector('#watchlistButton');
 const queueButton = document.querySelector('#queueButton');
 const apiKey = '55e390226d2f3f6feba5afe684a5a044';
-const queue = JSON.parse(localStorage.getItem('movieQueue')) || [];
+let queue = JSON.parse(localStorage.getItem('movieQueue')) || [];
+let movies = [];
 
-function addToQueue(movieId) {
-  const movie = movies.find(movie => movie.id === movieId);
+export function addToQueue(movieData) {
+  const movieId = movieData.id;
   const isMovieInQueue = queue.some(movieInQueue => movieInQueue.id === movieId);
 
   if (!isMovieInQueue) {
-    queue.push(movie);
+    queue.push(movieData);
     localStorage.setItem('movieQueue', JSON.stringify(queue));
-    Notify.success(`Added movie "${movie.title}" to queue list.`);
+    Notify.success(`Added movie "${movieData.title}" to queue list.`);
   } else {
-    Notify.failure(`Movie "${movie.title}" is already in queue list.`);
+    Notify.failure(`Movie "${movieData.title}" is already in queue list.`);
   }
 }
 
@@ -27,17 +28,16 @@ addToQueueButton.addEventListener('click', async () => {
     movies = data.results;
 
     movies.forEach(movie => {
-      const movieId = movie.id;
-      addToQueue(movieId);
+      addToQueue(movie);
     });
-    Notify.success('All movies added to the queue list.');
+    Notify.success(`Added movie "${movieData.title}" to queue list.`);
   } catch (error) {
     Notify.failure('Error while fetching movies:', error);
   }
 });
 
-function displayQueue(movie) {
-  drawMovies(movie);
+export function displayQueue() {
+  console.log(queue);
 }
 
 queueButton.addEventListener('click', () => {

@@ -1,9 +1,11 @@
 const apiKey = '55e390226d2f3f6feba5afe684a5a044';
 
-const moviesContainer = document.querySelector('.movies');
+const moviesContainer = document.querySelector('.gallery-home');
 const loadMoreButton = document.getElementById('loadMore');
 let currentPage = 1;
 let data;
+
+import { addToQueue } from './add-queue';
 
 async function fetchGenreName(genreId) {
   const genreUrl = `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`;
@@ -80,7 +82,8 @@ document.addEventListener('click', async event => {
   if (movieElement) {
     const movieIndex = Array.from(moviesContainer.children).indexOf(movieElement);
     const movieData = data.results[movieIndex];
-    await openModal(movieData);
+    addToQueue(movieData);
+    openModal(movieData);
   }
 });
 
