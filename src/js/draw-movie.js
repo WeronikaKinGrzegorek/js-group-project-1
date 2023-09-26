@@ -4,10 +4,7 @@ import {
 import {
   fetchGenres
 } from './fetch-genres';
-import {
-  showLoader,
-  hideLoader
-} from './loader';
+
 
 // const BASE_API_URL = 'https://api.themoviedb.org/3';
 
@@ -18,7 +15,7 @@ let page = 1;
 
 export async function drawMovies(inputValue, append = false) {
 
-  hideLoader();
+
 
   const genres = await fetchGenres();
   console.log('Genres:', genres);
@@ -56,10 +53,10 @@ export async function drawMovies(inputValue, append = false) {
     })
     .join('');
 
-    if(append) {
-      moviesGallery.insertAdjacentHTML('beforeend', movieList);
-    } else {
-   moviesGallery.innerHTML = movieList
-    }
-}
+  if (append) {
+    moviesGallery.insertAdjacentHTML('beforeend', movieList);
+  } else {
+    moviesGallery.innerHTML = movieList
 
+  }
+}
