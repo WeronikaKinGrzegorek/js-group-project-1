@@ -40,7 +40,7 @@
     display: flex;
     gap: 40px;
     flex-direction: row;
-    // justify-content: space-between;
+    padding-left:1px;
     align-items: center;
     @include tablet {
       gap: 20px;
@@ -56,11 +56,14 @@
     content: '';
     position: absolute;
     height: 3px;
-    top: 20px;
+    top: 23px;
     left: 0;
     right: 0;
     background-color: getColor('underline');
     border-radius: 2px;
+    @include tablet {
+      top: 20px;
+    }
   }
 }
 
@@ -219,7 +222,10 @@ input::placeholder {
   justify-content: center;
   align-items: center;
   gap: 20px;
-  padding-top: 40px;
+  padding-top: 20px;
+  @include tablet {
+    top: 40px;
+  }
 }
 .button {
   background: transparent;
