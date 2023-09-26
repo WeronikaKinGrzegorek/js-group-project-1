@@ -1,5 +1,13 @@
-import { fetchMovies } from './fetch';
-import { fetchGenres } from './fetch-genres';
+import {
+  fetchMovies
+} from './fetch';
+import {
+  fetchGenres
+} from './fetch-genres';
+import {
+  showLoader,
+  hideLoader
+} from './loader';
 
 // const BASE_API_URL = 'https://api.themoviedb.org/3';
 
@@ -9,6 +17,9 @@ const moviesGallery = document.querySelector('.gallery__list');
 let page = 1;
 
 export async function drawMovies(inputValue, append = false) {
+
+  hideLoader();
+
   const genres = await fetchGenres();
   console.log('Genres:', genres);
   const movies = await fetchMovies(inputValue, page);
@@ -18,10 +29,16 @@ export async function drawMovies(inputValue, append = false) {
   }
 
   const movieList = movies.results
-    .map(({ poster_path, genre_ids, id, release_date, title }) => {
-      const posterPath = poster_path
-        ? `${BASE_POSTER_PATH}${poster_path}`
-        : 'https://moviereelist.com/wp-content/uploads/2019/07/poster-placeholder.jpg';
+    .map(({
+      poster_path,
+      genre_ids,
+      id,
+      release_date,
+      title
+    }) => {
+      const posterPath = poster_path ?
+        `${BASE_POSTER_PATH}${poster_path}` :
+        'https://moviereelist.com/wp-content/uploads/2019/07/poster-placeholder.jpg';
 
       const genreNames = genre_ids
         .map(genreId => {
@@ -35,6 +52,7 @@ export async function drawMovies(inputValue, append = false) {
         <h3>${title.toUpperCase()}</h3>
         <p>${genreNames} | <span>${release_date.slice(0, 4)}</span></p>
       </li>`;
+
     })
     .join('');
 
@@ -44,3 +62,4 @@ export async function drawMovies(inputValue, append = false) {
    moviesGallery.innerHTML = movieList
     }
 }
+

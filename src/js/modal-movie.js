@@ -4,7 +4,7 @@ const loadMoreButton = document.getElementById('loadMore');
 let currentPage = 1;
 let data;
 
-export async function fetchGenreName(genreId) {
+async function fetchGenreName(genreId) {
   const genreUrl = `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`;
   try {
     const response = await fetch(genreUrl);
@@ -18,12 +18,12 @@ export async function fetchGenreName(genreId) {
   }
 }
 
-export function formatDate(dateString) {
+function formatDate(dateString) {
   const date = new Date(dateString);
   return date.getFullYear();
 }
 
-export async function openModal(movieData) {
+async function openModal(movieData) {
   const modal = document.getElementById('movieModal');
   const modalContent = modal.querySelector('.modal-content');
 
@@ -69,7 +69,7 @@ export async function openModal(movieData) {
   modal.style.display = 'block';
 }
 
-export function closeModal() {
+function closeModal() {
   const modal = document.getElementById('movieModal');
   modal.style.display = 'none';
 }
@@ -88,7 +88,7 @@ document.addEventListener('click', handleMovieClick);
 const modalCloseButton = document.getElementById('modalCloseButton');
 modalCloseButton.addEventListener('click', closeModal);
 
-export async function fetchMovies() {
+async function fetchMoviesPopular() {
   const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=${currentPage}`;
   try {
     const response = await fetch(url);
@@ -119,6 +119,6 @@ export async function fetchMovies() {
   }
 }
 
-loadMoreButton.addEventListener('click', fetchMovies);
+loadMoreButton.addEventListener('click', fetchMoviesPopular);
 
-fetchMovies();
+fetchMoviesPopular();
