@@ -1,3 +1,8 @@
+import {
+  showLoader,
+  hideLoader
+} from './loader';
+
 const apiKey = '55e390226d2f3f6feba5afe684a5a044';
 const moviesContainer = document.querySelector('.movies');
 const loadMoreButton = document.getElementById('loadMore');
@@ -89,6 +94,7 @@ const modalCloseButton = document.getElementById('modalCloseButton');
 modalCloseButton.addEventListener('click', closeModal);
 
 async function fetchMoviesPopular() {
+
   const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=${currentPage}`;
   try {
     const response = await fetch(url);
@@ -114,8 +120,9 @@ async function fetchMoviesPopular() {
         </div>
       `;
       moviesContainer.appendChild(movieElement);
-    }
 
+    }
+    hideLoader();
     currentPage++;
   } catch (error) {
     console.error('Błąd pobierania danych:', error);

@@ -2,7 +2,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: fixed;
+    /* Dodane */
+    top: 0;
+    /* Dodane */
+    left: 0;
+    /* Dodane */
+    width: 100%;
+    /* Dodane */
     height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    /* Dodane */
+    z-index: 9999;
+    /* Dodane: zapewnia, że loader jest na wierzchu innych elementów */
 }
 
 .loader {

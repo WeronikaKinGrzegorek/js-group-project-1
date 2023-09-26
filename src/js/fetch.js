@@ -16,26 +16,28 @@ const options = {
 
 
 export async function fetchMovies(query, page = 1, limit = 10) {
+  showLoader();
   const searchQuery = query.trim();
-  const params = new URLSearchParams ({
+  const params = new URLSearchParams({
     api_key: apiKey,
     query: searchQuery,
     page: page,
   })
+
   if (searchQuery === '') {
     Notiflix.Notify.failure('Please, enter key word');
     return null;
-  }
 
-  showLoader(); // Pokaż loader przed rozpoczęciem żądania
+  }
 
   try {
     const response = await axios.get(
       `https://api.themoviedb.org/3/search/movie?${params}`,
       options,
-    );
 
-    hideLoader(); // Ukryj loader po zakończeniu żądania
+    );
+    hideLoader();
+
 
     return response.data;
     console.log(response.data.results.total_pages)
@@ -45,8 +47,9 @@ export async function fetchMovies(query, page = 1, limit = 10) {
       'Sorry, there are no images matching your search query. Please try again.',
     );
 
-    hideLoader(); // Ukryj loader w przypadku błędu
+
 
     return null;
   }
+
 }
