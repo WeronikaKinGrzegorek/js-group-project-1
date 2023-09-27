@@ -17,8 +17,14 @@ export async function drawMovies(inputValue, append = false) {
 
 
 
+
+export async function drawMovies(inputValue, append = false) {
   const genres = await fetchGenres();
   console.log('Genres:', genres);
+  if (typeof inputValue !== 'string') {
+    inputValue = inputValue.toString();
+  }
+
   const movies = await fetchMovies(inputValue, page);
 
   if (!movies.results || movies.results.length === 0) {
@@ -56,7 +62,7 @@ export async function drawMovies(inputValue, append = false) {
   if (append) {
     moviesGallery.insertAdjacentHTML('beforeend', movieList);
   } else {
-    moviesGallery.innerHTML = movieList
 
+    moviesGallery.innerHTML = movieList;
   }
 }

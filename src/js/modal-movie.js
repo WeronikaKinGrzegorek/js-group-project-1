@@ -1,10 +1,21 @@
 import { showLoader, hideLoader } from './loader.js';
 
+import { addToQueue } from './add-queue';
+import { addToWatchlist } from './add-watchlist.js';
+import { fetchGenres } from './fetch-genres.js';
+
+
 const moviesContainer = document.querySelector('.gallery-home');
 const apiKey = '55e390226d2f3f6feba5afe684a5a044';
 const loadMoreButton = document.getElementById('loadMore');
 let currentPage = 1;
 let data;
+let genres = [];
+
+
+async function fetchGenreOnce(genreId) {
+  if (genres.length === 0) {
+    genres = await fetchGenres();
 
 import { addToQueue } from './add-queue';
 
@@ -18,8 +29,13 @@ async function fetchGenreName(genreId) {
   } catch (error) {
     console.error('Błąd pobierania gatunków:', error);
     return 'Nieznany';
+
   }
+  const foundGenre = genres.find(genre => genre.id === genreId);
+  return foundGenre ? foundGenre.name : 'Nieznany';
 }
+
+fetchGenreOnce();
 
 function formatDate(dateString) {
   const date = new Date(dateString);
@@ -41,20 +57,23 @@ async function openModal(movieData) {
   const modalOriginalTitle = modal.querySelector('#modalOriginalTitle');
   modalOriginalTitle.textContent = movieData.original_title;
   const genreIds = movieData.genre_ids;
-  const genreNames = await Promise.all(
-    genreIds.map(async genreId => await fetchGenreName(genreId)),
-  );
+  const genreNames = genreIds.map(async genreId => await fetchGenreOnce(genreId));
+  const resolvedGenreNames = await Promise.all(genreNames);
   const modalGenres = modal.querySelector('#modalGenres');
+
+  modalGenres.textContent = resolvedGenreNames.join(', ');
+
   modalGenres.textContent = genreNames.join(', ');
+
   const modalOverview = modal.querySelector('#modalOverview');
   modalOverview.textContent = movieData.overview;
   const watchedButton = modal.querySelector('#watchedButton');
   watchedButton.addEventListener('click', () => {
-    console.log('Dodano do obejrzanych: ' + movieData.title);
+    addToWatchlist(movieData);
   });
   const watchlistButton = modal.querySelector('#watchlistButton');
   watchlistButton.addEventListener('click', () => {
-    console.log('Dodano do obejrzenia: ' + movieData.title);
+    addToQueue(movieData);
   });
   const trailerLink = modal.querySelector('#trailerLink');
   trailerLink.href = `https://www.youtube.com/results?search_query=${movieData.title}+trailer`;
@@ -92,7 +111,8 @@ export function handleMovieClick(event) {
     const movieIndex = Array.from(moviesContainer.children).indexOf(movieElement);
     const movieData = data.results[movieIndex];
 
-    addToQueue(movieData);
+
+
 
     openModal(movieData);
   }
@@ -109,12 +129,16 @@ async function fetchMoviesPopular() {
     const response = await fetch(url);
     data = await response.json();
 
+    if (genres.length === 0) {
+      genres = await fetchGenres();
+    }
+
     for (const movie of data.results) {
       const movieElement = document.createElement('div');
       movieElement.classList.add('movie');
 
       const genreNames = await Promise.all(
-        movie.genre_ids.map(async genreId => await fetchGenreName(genreId)),
+        movie.genre_ids.map(async genreId => await fetchGenreOnce(genreId)),
       );
 
       const releaseYear = formatDate(movie.release_date);
