@@ -1,10 +1,5 @@
-import {
-  fetchMovies
-} from './fetch';
-import {
-  fetchGenres
-} from './fetch-genres';
-
+import { fetchMovies } from './fetch';
+import { fetchGenres } from './fetch-genres';
 
 // const BASE_API_URL = 'https://api.themoviedb.org/3';
 
@@ -12,11 +7,6 @@ const BASE_POSTER_PATH = 'https://image.tmdb.org/t/p/w500';
 
 const moviesGallery = document.querySelector('.gallery__list');
 let page = 1;
-
-export async function drawMovies(inputValue, append = false) {
-
-
-
 
 export async function drawMovies(inputValue, append = false) {
   const genres = await fetchGenres();
@@ -32,16 +22,10 @@ export async function drawMovies(inputValue, append = false) {
   }
 
   const movieList = movies.results
-    .map(({
-      poster_path,
-      genre_ids,
-      id,
-      release_date,
-      title
-    }) => {
-      const posterPath = poster_path ?
-        `${BASE_POSTER_PATH}${poster_path}` :
-        'https://moviereelist.com/wp-content/uploads/2019/07/poster-placeholder.jpg';
+    .map(({ poster_path, genre_ids, id, release_date, title }) => {
+      const posterPath = poster_path
+        ? `${BASE_POSTER_PATH}${poster_path}`
+        : 'https://moviereelist.com/wp-content/uploads/2019/07/poster-placeholder.jpg';
 
       const genreNames = genre_ids
         .map(genreId => {
@@ -55,14 +39,12 @@ export async function drawMovies(inputValue, append = false) {
         <h3>${title.toUpperCase()}</h3>
         <p>${genreNames} | <span>${release_date.slice(0, 4)}</span></p>
       </li>`;
-
     })
     .join('');
 
   if (append) {
     moviesGallery.insertAdjacentHTML('beforeend', movieList);
   } else {
-
     moviesGallery.innerHTML = movieList;
   }
 }

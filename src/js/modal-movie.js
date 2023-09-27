@@ -1,9 +1,7 @@
 import { showLoader, hideLoader } from './loader.js';
-
 import { addToQueue } from './add-queue';
 import { addToWatchlist } from './add-watchlist.js';
 import { fetchGenres } from './fetch-genres.js';
-
 
 const moviesContainer = document.querySelector('.gallery-home');
 const apiKey = '55e390226d2f3f6feba5afe684a5a044';
@@ -12,24 +10,9 @@ let currentPage = 1;
 let data;
 let genres = [];
 
-
 async function fetchGenreOnce(genreId) {
   if (genres.length === 0) {
     genres = await fetchGenres();
-
-import { addToQueue } from './add-queue';
-
-async function fetchGenreName(genreId) {
-  const genreUrl = `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}&language=en-US`;
-  try {
-    const response = await fetch(genreUrl);
-    const genreData = await response.json();
-    const genre = genreData.genres.find(genre => genre.id === genreId);
-    return genre ? genre.name : 'Nieznany';
-  } catch (error) {
-    console.error('Błąd pobierania gatunków:', error);
-    return 'Nieznany';
-
   }
   const foundGenre = genres.find(genre => genre.id === genreId);
   return foundGenre ? foundGenre.name : 'Nieznany';
@@ -60,11 +43,7 @@ async function openModal(movieData) {
   const genreNames = genreIds.map(async genreId => await fetchGenreOnce(genreId));
   const resolvedGenreNames = await Promise.all(genreNames);
   const modalGenres = modal.querySelector('#modalGenres');
-
   modalGenres.textContent = resolvedGenreNames.join(', ');
-
-  modalGenres.textContent = genreNames.join(', ');
-
   const modalOverview = modal.querySelector('#modalOverview');
   modalOverview.textContent = movieData.overview;
   const watchedButton = modal.querySelector('#watchedButton');
@@ -110,9 +89,6 @@ export function handleMovieClick(event) {
   if (movieElement) {
     const movieIndex = Array.from(moviesContainer.children).indexOf(movieElement);
     const movieData = data.results[movieIndex];
-
-
-
 
     openModal(movieData);
   }
