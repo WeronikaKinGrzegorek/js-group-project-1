@@ -1,6 +1,7 @@
 import { fetchMovies } from './js/fetch';
 import { drawMovies } from './js/draw-movie';
 import { showLoader, hideLoader } from './js/loader';
+import './js/dark-mode'
 import './sass/main.scss';
 
 const form = document.querySelector('.search-form');
