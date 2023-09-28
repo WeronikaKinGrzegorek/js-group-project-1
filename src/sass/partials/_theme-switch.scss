@@ -72,7 +72,6 @@
 .dark-theme {
   color: getColor('text-1');
   background-color: #222;
-  
 }
 
 body.light-theme {
@@ -92,15 +91,19 @@ body.dark-theme {
       color: getColor('text-1');
     }
   }
-    .gallery-home, .gallery__list{
-        background-image: repeating-linear-gradient(
-            to right,
-            getColor('dark-bg'),
-            getColor( 'dark-bg') 130px,
-            getColor( 'text-3') 130px,
-            getColor('text-3') 150px
-          );
-    }
+  .gallery-home,
+  .gallery__list {
+    background-image: repeating-linear-gradient(
+      to right,
+      getColor('dark-bg'),
+      getColor('dark-bg') 130px,
+      getColor('text-3') 130px,
+      getColor('text-3') 150px
+    );
+  }
+  .modal-content {
+    background-color: #333333;
+  }
   button#loadMore {
     background-color: getColor('button-activebg');
     box-shadow: inset 5px -15px 30px -10px #a7151a;
