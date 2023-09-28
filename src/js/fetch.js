@@ -3,15 +3,7 @@ import Notiflix from 'notiflix';
 import { showLoader, hideLoader } from './loader'; // Import funkcji obsługujących loader
 
 const apiKey = '55e390226d2f3f6feba5afe684a5a044';
-
 const BASE_API_URL = 'https://api.themoviedb.org/3/';
-
-const options = {
-  method: 'GET',
-  headers: {
-    accept: 'application/json',
-  },
-};
 
 export async function fetchMovies(query = '', page = 1) {
   showLoader();
@@ -26,18 +18,11 @@ export async function fetchMovies(query = '', page = 1) {
 
   const url = searchQuery ? urlSearch : urlPopular;
 
-  // if (searchQuery === '') {
-  //   Notiflix.Notify.failure('Please, enter key word');
-  //   return null;
-  // }
-
   try {
-    const response = await axios.get(url, options);
+    const response = await axios.get(url);
     hideLoader();
 
     return response.data.results;
-
-    // console.log(response.data.results.total_pages);
   } catch (error) {
     console.error('Błąd podczas pobierania fimów:', error);
     Notiflix.Notify.failure(
@@ -45,5 +30,21 @@ export async function fetchMovies(query = '', page = 1) {
     );
 
     return null;
+  }
+}
+
+let genres = null;
+export async function fetchGenres() {
+  if (genres) {
+    return genres;
+  }
+  try {
+    const genresUrl = `${BASE_API_URL}genre/movie/list?api_key=${apiKey}`;
+    const result = await axios.get(genresUrl);
+    genres = result.data.genres;
+    return genres;
+  } catch (e) {
+    console.error(e);
+    return [];
   }
 }

@@ -15,8 +15,6 @@ form.addEventListener('submit', function (event) {
   event.preventDefault();
   const inputValue = searchField.value;
 
-  // const movies = fetchMovies(inputValue);
-  // console.log(movies);
   moviesGallery.innerHTML = '';
   drawMovies(inputValue);
 

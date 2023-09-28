@@ -1,5 +1,5 @@
-import { fetchMovies } from './fetch';
-import { fetchGenres } from './fetch-genres';
+import { fetchMovies } from './fetch.js';
+import { fetchGenres } from './fetch.js';
 
 const BASE_POSTER_PATH = 'https://image.tmdb.org/t/p/w500';
 
@@ -11,9 +11,6 @@ export async function drawMovies(inputValue) {
   try {
     const genres = await fetchGenres();
     console.log('Genres:', genres);
-    // if (typeof inputValue !== 'string') {
-    //   inputValue = inputValue.toString();
-    // }
 
     const movies = await fetchMovies(inputValue, page);
     console.log(movies);
@@ -21,20 +18,16 @@ export async function drawMovies(inputValue) {
     if (!movies || movies.length === 0) {
       return;
     }
-    movies.forEach(({ poster_path }) => {
-      const posterPath = poster_path
-        ? `${BASE_POSTER_PATH}${poster_path}`
-        : 'https://moviereelist.com/wp-content/uploads/2019/07/poster-placeholder.jpg';
 
-      if (!posterArray.includes(posterPath)) {
-        posterArray.push(posterPath);
-      }
-    });
     const galleryOfMovies = movies
       .map(({ poster_path, genre_ids, id, release_date, title }) => {
         const posterPath = poster_path
           ? `${BASE_POSTER_PATH}${poster_path}`
           : 'https://moviereelist.com/wp-content/uploads/2019/07/poster-placeholder.jpg';
+
+        if (!posterArray.includes(posterPath)) {
+          posterArray.push(posterPath);
+        }
 
         const genreNames = genre_ids
           .map(genreId => {

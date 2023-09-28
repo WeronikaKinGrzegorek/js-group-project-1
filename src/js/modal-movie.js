@@ -1,10 +1,11 @@
 import { showLoader, hideLoader } from './loader.js';
 import { addToQueue } from './add-queue';
 import { addToWatchlist } from './add-watchlist.js';
-import { fetchGenres } from './fetch-genres.js';
+import { fetchGenres } from './fetch.js';
 import { drawMovies } from './draw-movie.js';
+import { fetchMovies } from './fetch.js';
 
-const moviesContainer = document.querySelector('.gallery-home');
+const moviesContainer = document.querySelector('.gallery__list');
 // const apiKey = '55e390226d2f3f6feba5afe684a5a044';
 // const loadMoreButton = document.getElementById('loadMore');
 // let currentPage = 1;
@@ -85,13 +86,21 @@ function handleEscKey(event) {
   }
 }
 
-export function handleMovieClick(event) {
-  const movieElement = event.target.closest('.gallery-home');
-  if (movieElement) {
-    const movieIndex = Array.from(moviesContainer.children).indexOf(movieElement);
-    const movieData = movies[movieIndex];
+export async function handleMovieClick(event) {
+  try {
+    const moviesDetails = await fetchMovies();
+    console.log(moviesDetails);
+    const movieElement = event.target.closest('.gallery__list-item');
 
-    openModal(movieData);
+    if (movieElement) {
+      const movieIndex = Array.from(moviesContainer.children).indexOf(movieElement);
+      console.log(movieIndex);
+      const movieData = moviesDetails[movieIndex];
+
+      openModal(movieData);
+    }
+  } catch (error) {
+    console.error(error);
   }
 }
 
@@ -139,5 +148,3 @@ modalCloseButton.addEventListener('click', closeModal);
 // }
 
 // loadMoreButton.addEventListener('click', fetchMoviesPopular);
-
-drawMovies();
