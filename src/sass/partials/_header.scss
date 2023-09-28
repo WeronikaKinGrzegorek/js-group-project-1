@@ -22,7 +22,7 @@
     cursor: pointer;
     transition: transform 250ms ease, box-shadow 200ms ease, border 200ms ease;
   }
-  &__svg:hover, &__svg:focus {
+  &__svg:hover {
     fill: getColor('active');
     transform: scale(1.1);
   }
@@ -159,8 +159,8 @@
 }
 .nav-item:hover,
 .nav-item:focus,
-.logo:hover,
-.logo:focus {
+.header__wrapper:hover,
+.header__wrapper:focus,.logo:hover {
   color: getColor('active');
   transform: scale(1.1);
 }

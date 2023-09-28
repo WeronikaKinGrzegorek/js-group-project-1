@@ -15,12 +15,14 @@ $secondary-button-color: #555;
     getColor('text-1') 130px,
     getColor('text-1') 150px
   );
+  padding-top: 230px;
 
   transition: justify-content 0.3s ease;
 
   @media screen and (min-width: 768px) {
     justify-content: space-between;
     transition: justify-content 0.2s ease;
+    padding-top: 213px;
   }
 
   @media screen and (min-width: 1024px) {
