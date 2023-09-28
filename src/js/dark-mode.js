@@ -1,32 +1,30 @@
 const body = document.querySelector('body')
+const container = document.querySelector('.container')
 const switchToggle = document.querySelector('#theme-switch-toggle')
-// const Theme = {
-//   LIGHT: 'light-theme',
-//   DARK: 'dark-theme',
-// };
 
 loadingSwitcher();
 switchToggle.addEventListener('change', chengeTheme);
 
-function loadingSwitcher() {
-    const savedThem = localStorage.getItem('Theme');
-    if (savedThem === '.dark-theme') {
-      body.classList.add(savedThem);
-      switchToggle.checked = true;
-    } else {
-      body.classList.add('light-theme');
-    }
-  }
-
-
 function chengeTheme() {
- body.classList.toggle('.dark-theme');
-  body.classList.toggle('.light-theme');
+    body.classList.toggle('light-theme');
+    body.classList.toggle('dark-theme');
+  
+   
+     getCurrentTheme(body.classList);
+   }
 
-  getCurrentTheme(body.classList);
-}
 
 function getCurrentTheme(currentThem) {
   localStorage.setItem('Theme', currentThem);
 }
 
+function loadingSwitcher() {
+   
+     const savedThem = localStorage.getItem('Theme');
+    if (savedThem === 'light-theme') {
+      body.classList.add(savedThem);
+      switchToggle.checked = true;
+    } else {
+      body.classList.add('dark-theme');
+    }
+  }
