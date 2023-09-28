@@ -1,7 +1,7 @@
 import { showLoader, hideLoader } from './loader.js';
 import { addToQueue } from './add-queue';
 import { addToWatchlist } from './add-watchlist.js';
-import { fetchGenres } from './fetch.js';
+import { fetchGenres } from './fetch-genres.js';
 import { drawMovies } from './draw-movie.js';
 import { fetchMovies } from './fetch.js';
 

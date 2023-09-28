@@ -33,18 +33,13 @@ export async function fetchMovies(query = '', page = 1) {
   }
 }
 
-let genres = null;
-export async function fetchGenres() {
-  if (genres) {
-    return genres;
-  }
+export async function getFilmDetails(id) {
   try {
-    const genresUrl = `${BASE_API_URL}genre/movie/list?api_key=${apiKey}`;
-    const result = await axios.get(genresUrl);
-    genres = result.data.genres;
-    return genres;
-  } catch (e) {
-    console.error(e);
-    return [];
+    const url = `${BASE_API_URL}movie/${id}?api_key=${apiKey}`;
+    const response = await axios.get(url);
+    return response.data;
+  } catch (error) {
+    console.log('Oops, an error occurred');
   }
 }
+// // getFilmDetails();

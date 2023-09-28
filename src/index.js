@@ -1,5 +1,6 @@
 import { fetchMovies } from './js/fetch';
 import { drawMovies } from './js/draw-movie';
+import { fetchMovieDetails } from './js/fetch';
 import { showLoader, hideLoader } from './js/loader';
 import './sass/main.scss';
 
@@ -32,4 +33,4 @@ btnLoadMore.addEventListener('click', async () => {
   }
 });
 
-drawMovies();
+drawMovies(inputValue);
