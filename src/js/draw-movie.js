@@ -5,6 +5,7 @@ const BASE_POSTER_PATH = 'https://image.tmdb.org/t/p/w500';
 
 const moviesGallery = document.querySelector('.gallery__list');
 let page = 1;
+const posterArray = [];
 
 export async function drawMovies(inputValue) {
   try {
@@ -20,7 +21,15 @@ export async function drawMovies(inputValue) {
     if (!movies || movies.length === 0) {
       return;
     }
+    movies.forEach(({ poster_path }) => {
+      const posterPath = poster_path
+        ? `${BASE_POSTER_PATH}${poster_path}`
+        : 'https://moviereelist.com/wp-content/uploads/2019/07/poster-placeholder.jpg';
 
+      if (!posterArray.includes(posterPath)) {
+        posterArray.push(posterPath);
+      }
+    });
     const galleryOfMovies = movies
       .map(({ poster_path, genre_ids, id, release_date, title }) => {
         const posterPath = poster_path
@@ -41,7 +50,6 @@ export async function drawMovies(inputValue) {
       </li>`;
       })
       .join('');
-
     moviesGallery.insertAdjacentHTML('beforeend', galleryOfMovies);
   } catch (error) {
     console.error(error);
