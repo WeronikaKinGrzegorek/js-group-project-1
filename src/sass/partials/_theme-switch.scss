@@ -3,9 +3,9 @@
   align-items: center;
 
   &__icon {
-    color: currentColor;
-    height: 20px;
-    width: 20px;
+ fill:getColor('active');
+    height: 15px;
+    width: 15px;
     margin-right: 5px;
     margin-left: 5px;
   }
@@ -15,7 +15,7 @@
     align-items: center;
     flex-shrink: 0;
     position: relative;
-    width: 36px;
+    width: 32px;
     height: 16px;
     border-radius: 50em;
     padding: 3px 0;
@@ -46,7 +46,7 @@
   }
   &__marker {
     position: relative;
-    background-color: #fff;
+    background-color: getColor('deafult-2');
     width: 15px;
     height: 13px;
     border-radius: 50%;
@@ -70,25 +70,25 @@
 }
 
 .dark-theme {
-  color: #fff;
+    color: getColor('text-1');
   background-color: #222;
 }
 
 body.light-theme {
-  background-color: #fff;
+  background-color: getColor('deafult-2');
   color: black;
 }
 
 body.dark-theme {
   background-color: #333333;
-  color: #fff;
+  color: getColor('text-1');
 
   footer {
     border-top: solid 1px rgb(68, 67, 67);
     background-color:#222;
-    color: #fff;
+    color: getColor('text-1');
     a {
-        color:#fff;
+        color:getColor('text-1');
     }
   }
 //   .gallery-home {
@@ -100,5 +100,11 @@ button{
     box-shadow: inset 5px -15px 30px -10px #a7151a;
     border: none;
 }
+
+}
+.switcher{
+display: flex;
+justify-content: flex-end;
+padding-top: 20px;
 
 }
