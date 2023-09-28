@@ -1,27 +1,51 @@
 <header class="header index-header">
-    <div class="container">
-      <div class="header__box">
-        <div class="header__wrapper">
-          <svg class="header__svg" width="22" height="23">
-            <use href="./images/symbol.svg#icon-camera-roll-icon"></use>
-          </svg>
-          <a class="logo" href="#"> Filmoteka</a>
-        </div>
-        <nav class="header__nav">
-          <div class="header__underline">
-            <a class="nav-item" href="#">HOME</a>
-          </div>
-          <a class="nav-item" href="./library.html">MY LIBRARY</a>
-        </nav>
+  <div class="container">
+    <div class="header__box">
+      <div class="header__wrapper">
+        <svg class="header__svg" width="22" height="23">
+          <use href="./images/symbol.svg#icon-camera-roll-icon"></use>
+        </svg>
+        <a class="logo" href="#"> Filmoteka</a>
       </div>
-      <div class="wrapper-form">
-        <form class="search-form" id="search-form">
-          <input type="text" name="searchQuery" autocomplete="off" placeholder="Movie search" />
-          <svg class="search__svg" width="12" height="12">
-            <use href="./images/symbol.svg#icon-search"></use>
-          </svg>
-        </form>
-        <p class="warning">Search result not successful. Enter the correct movie name</p>
+      <nav class="header__nav">
+        <div class="header__underline">
+          <a class="nav-item" href="#">HOME</a>
+        </div>
+        <a class="nav-item" href="./library.html">MY LIBRARY</a>
+      </nav>
+    </div>
+    <div class="wrapper-form">
+      <form class="search-form" id="search-form">
+        <input type="text" name="searchQuery" autocomplete="off" placeholder="Movie search" />
+        <svg class="search__svg" width="12" height="12">
+          <use href="./images/symbol.svg#icon-search"></use>
+        </svg>
+      </form>
+      <p class="warning">Search result not successful. Enter the correct movie name</p>
+    </div>
+    <div class="switcher container">
+      <!-- switcher -->
+      <div class="theme-switch">
+        <svg class="theme-switch__icon" role="img" aria-label="light">
+          <use href="./images/symbol.svg#icon-search"></use>
+        </svg>
+
+        <div class="theme-switch__control">
+          <input
+            class="theme-switch__toggle"
+            type="checkbox"
+            name="theme"
+            id="theme-switch-toggle"
+            aria-label="switch"
+          />
+          <label aria-hidden="true" class="theme-switch__track" for="theme-switch-toggle"> </label>
+          <div aria-hidden="true" class="theme-switch__marker"></div>
+        </div>
+
+        <svg class="theme-switch__icon" aria-label="dark">
+          <use href="./images/symbol.svg#icon-search"></use>
+        </svg>
       </div>
     </div>
-  </header>
+  </div>
+</header>
