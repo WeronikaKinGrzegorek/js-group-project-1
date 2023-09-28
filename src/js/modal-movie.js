@@ -2,12 +2,13 @@ import { showLoader, hideLoader } from './loader.js';
 import { addToQueue } from './add-queue';
 import { addToWatchlist } from './add-watchlist.js';
 import { fetchGenres } from './fetch-genres.js';
+import { drawMovies } from './draw-movie.js';
 
 const moviesContainer = document.querySelector('.gallery-home');
-const apiKey = '55e390226d2f3f6feba5afe684a5a044';
-const loadMoreButton = document.getElementById('loadMore');
-let currentPage = 1;
-let data;
+// const apiKey = '55e390226d2f3f6feba5afe684a5a044';
+// const loadMoreButton = document.getElementById('loadMore');
+// let currentPage = 1;
+// let data;
 let genres = [];
 
 async function fetchGenreOnce(genreId) {
@@ -85,10 +86,10 @@ function handleEscKey(event) {
 }
 
 export function handleMovieClick(event) {
-  const movieElement = event.target.closest('.movie');
+  const movieElement = event.target.closest('.gallery-home');
   if (movieElement) {
     const movieIndex = Array.from(moviesContainer.children).indexOf(movieElement);
-    const movieData = data.results[movieIndex];
+    const movieData = movies[movieIndex];
 
     openModal(movieData);
   }
@@ -99,44 +100,44 @@ document.addEventListener('click', handleMovieClick);
 const modalCloseButton = document.getElementById('modalCloseButton');
 modalCloseButton.addEventListener('click', closeModal);
 
-async function fetchMoviesPopular() {
-  const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=${currentPage}`;
-  try {
-    const response = await fetch(url);
-    data = await response.json();
+// async function fetchMoviesPopular() {
+//   const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=${currentPage}`;
+//   try {
+//     const response = await fetch(url);
+//     data = await response.json();
 
-    if (genres.length === 0) {
-      genres = await fetchGenres();
-    }
+//     if (genres.length === 0) {
+//       genres = await fetchGenres();
+//     }
 
-    for (const movie of data.results) {
-      const movieElement = document.createElement('div');
-      movieElement.classList.add('movie');
+//     for (const movie of data.results) {
+//       const movieElement = document.createElement('div');
+//       movieElement.classList.add('movie');
 
-      const genreNames = await Promise.all(
-        movie.genre_ids.map(async genreId => await fetchGenreOnce(genreId)),
-      );
+//       const genreNames = await Promise.all(
+//         movie.genre_ids.map(async genreId => await fetchGenreOnce(genreId)),
+//       );
 
-      const releaseYear = formatDate(movie.release_date);
+//       const releaseYear = formatDate(movie.release_date);
 
-      movieElement.innerHTML = `
-        <div class="movie-content">
-          <img src="https://image.tmdb.org/t/p/w300${movie.poster_path}" alt="${movie.title}">
-          <h3 class="movie-title">${movie.title.toUpperCase()}</h3>
-          <p class="movie-info">
-            ${genreNames.join(', ')} | ${releaseYear}
-          </p>
-        </div>
-      `;
-      moviesContainer.appendChild(movieElement);
-    }
-    hideLoader();
-    currentPage++;
-  } catch (error) {
-    console.error('Błąd pobierania danych:', error);
-  }
-}
+//       movieElement.innerHTML = `
+//         <div class="movie-content">
+//           <img src="https://image.tmdb.org/t/p/w300${movie.poster_path}" alt="${movie.title}">
+//           <h3 class="movie-title">${movie.title.toUpperCase()}</h3>
+//           <p class="movie-info">
+//             ${genreNames.join(', ')} | ${releaseYear}
+//           </p>
+//         </div>
+//       `;
+//       moviesContainer.appendChild(movieElement);
+//     }
+//     hideLoader();
+//     currentPage++;
+//   } catch (error) {
+//     console.error('Błąd pobierania danych:', error);
+//   }
+// }
 
-loadMoreButton.addEventListener('click', fetchMoviesPopular);
+// loadMoreButton.addEventListener('click', fetchMoviesPopular);
 
-fetchMoviesPopular();
+drawMovies();
