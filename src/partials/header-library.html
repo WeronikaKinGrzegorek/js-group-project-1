@@ -19,5 +19,29 @@
       <button class="button" id="watchedButtonLibrary">WATCHED</button>
       <button class="button" id="queueButtonLibrary">QUEUE</button>
     </div>
+    <div class="switcher">
+      <!-- switcher -->
+      <div class="theme-switch">
+        <svg class="theme-switch__icon" role="img" aria-label="light">
+          <use href="./images/symbol.svg#icon-moon"></use>
+        </svg>
+
+        <div class="theme-switch__control">
+          <input
+            class="theme-switch__toggle"
+            type="checkbox"
+            name="theme"
+            id="theme-switch-toggle"
+            aria-label="switch"
+          />
+          <label aria-hidden="true" class="theme-switch__track" for="theme-switch-toggle"> </label>
+          <div aria-hidden="true" class="theme-switch__marker"></div>
+        </div>
+
+        <svg class="theme-switch__icon" aria-label="dark">
+          <use href="./images/symbol.svg#icon-sun"></use>
+        </svg>
+      </div>
+    </div>
   </div>
 </header>
