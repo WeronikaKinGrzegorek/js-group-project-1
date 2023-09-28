@@ -3,7 +3,7 @@
   align-items: center;
 
   &__icon {
- fill:getColor('active');
+    fill: getColor('active');
     height: 15px;
     width: 15px;
     margin-right: 5px;
@@ -70,8 +70,9 @@
 }
 
 .dark-theme {
-    color: getColor('text-1');
+  color: getColor('text-1');
   background-color: #222;
+  
 }
 
 body.light-theme {
@@ -85,26 +86,33 @@ body.dark-theme {
 
   footer {
     border-top: solid 1px rgb(68, 67, 67);
-    background-color:#222;
+    background-color: #222;
     color: getColor('text-1');
     a {
-        color:getColor('text-1');
+      color: getColor('text-1');
     }
   }
-//   .gallery-home {
-//     background-color: #333333;
-//   }
-button{
+    .gallery-home, .gallery__list{
+        background-image: repeating-linear-gradient(
+            to right,
+            getColor('dark-bg'),
+            getColor( 'dark-bg') 130px,
+            getColor( 'text-3') 130px,
+            getColor('text-3') 150px
+          );
+    }
+  button#loadMore {
     background-color: getColor('button-activebg');
-    color: getColor('text-1');
     box-shadow: inset 5px -15px 30px -10px #a7151a;
     border: none;
+    &:hover,
+    &:focus {
+      transform: scale(1.1);
+    }
+  }
 }
-
-}
-.switcher{
-display: flex;
-justify-content: flex-end;
-padding-top: 20px;
-
+.switcher {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 20px;
 }

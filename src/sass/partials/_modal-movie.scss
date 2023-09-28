@@ -8,13 +8,13 @@ $secondary-button-color: #555;
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
-  // background-image: repeating-linear-gradient(
-  //   to right,
-  //   getColor('footer-bg'),
-  //   getColor('footer-bg') 130px,
-  //   getColor('text-1') 130px,
-  //   getColor('text-1') 150px
-  // );
+  background-image: repeating-linear-gradient(
+    to right,
+    getColor('footer-bg'),
+    getColor('footer-bg') 130px,
+    getColor('text-1') 130px,
+    getColor('text-1') 150px
+  );
   padding-top: 230px;
 
   transition: justify-content 0.3s ease;
