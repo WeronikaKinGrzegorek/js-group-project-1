@@ -2,14 +2,14 @@ import { fetchMovies } from './js/fetch';
 import { drawMovies } from './js/draw-movie';
 import { fetchMovieDetails } from './js/fetch';
 import { showLoader, hideLoader } from './js/loader';
-import './js/dark-mode'
+import './js/dark-mode';
 import './sass/main.scss';
 
 const form = document.querySelector('.search-form');
 const searchField = document.querySelector('[name="searchQuery"]');
 const moviesGallery = document.querySelector('.gallery__list');
 
-const btnLoadMore = document.getElementById('loadMoreSearched');
+const btnLoadMore = document.getElementById('loadMore');
 
 let inputValue = '';
 
