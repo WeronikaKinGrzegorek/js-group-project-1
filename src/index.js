@@ -1,5 +1,6 @@
 import { fetchMovies } from './js/fetch';
 import { drawMovies } from './js/draw-movie';
+import { fetchMovieDetails } from './js/fetch';
 import { showLoader, hideLoader } from './js/loader';
 import './js/dark-mode'
 import './sass/main.scss';
@@ -16,8 +17,6 @@ form.addEventListener('submit', function (event) {
   event.preventDefault();
   const inputValue = searchField.value;
 
-  const movies = fetchMovies(inputValue);
-  console.log(movies);
   moviesGallery.innerHTML = '';
   drawMovies(inputValue);
 
@@ -26,8 +25,8 @@ form.addEventListener('submit', function (event) {
 
 btnLoadMore.addEventListener('click', async () => {
   page += 1;
-  const movies = await fetchMovies(inputValue, page);
-  if (movies && movies.results && movies.results.length > 0) {
+  const moreMovies = await fetchMovies(inputValue, page);
+  if (moreMovies && moreMovies.length > 0) {
     drawMovies(inputValue, true);
   } else {
     btnLoadMore.disabled = true;
@@ -35,14 +34,4 @@ btnLoadMore.addEventListener('click', async () => {
   }
 });
 
-btnLoadMore.addEventListener('click', async () => {
-  page += 1;
-
-  const movies = await fetchMovies(inputValue, page);
-  if (movies && movies.results && movies.results.length > 0) {
-    drawMovies(inputValue, true);
-  } else {
-    btnLoadMore.disabled = true;
-    btnLoadMore.textContent = 'No More Movies';
-  }
-});
+drawMovies(inputValue);
