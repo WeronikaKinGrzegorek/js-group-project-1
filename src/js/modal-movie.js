@@ -11,6 +11,21 @@ const moviesContainer = document.querySelector('.gallery__list');
 // let currentPage = 1;
 // let data;
 let genres = [];
+document.addEventListener('DOMContentLoaded', function () {
+  let currentPage = 1;
+
+  const loadMoreMovies = async () => {
+    try {
+      await drawMovies('', currentPage, 15);
+      currentPage++;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const loadMoreButton = document.getElementById('loadMore');
+  loadMoreButton.addEventListener('click', loadMoreMovies);
+});
 
 async function fetchGenreOnce(genreId) {
   if (genres.length === 0) {
@@ -108,43 +123,3 @@ document.addEventListener('click', handleMovieClick);
 
 const modalCloseButton = document.getElementById('modalCloseButton');
 modalCloseButton.addEventListener('click', closeModal);
-
-// async function fetchMoviesPopular() {
-//   const url = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=${currentPage}`;
-//   try {
-//     const response = await fetch(url);
-//     data = await response.json();
-
-//     if (genres.length === 0) {
-//       genres = await fetchGenres();
-//     }
-
-//     for (const movie of data.results) {
-//       const movieElement = document.createElement('div');
-//       movieElement.classList.add('movie');
-
-//       const genreNames = await Promise.all(
-//         movie.genre_ids.map(async genreId => await fetchGenreOnce(genreId)),
-//       );
-
-//       const releaseYear = formatDate(movie.release_date);
-
-//       movieElement.innerHTML = `
-//         <div class="movie-content">
-//           <img src="https://image.tmdb.org/t/p/w300${movie.poster_path}" alt="${movie.title}">
-//           <h3 class="movie-title">${movie.title.toUpperCase()}</h3>
-//           <p class="movie-info">
-//             ${genreNames.join(', ')} | ${releaseYear}
-//           </p>
-//         </div>
-//       `;
-//       moviesContainer.appendChild(movieElement);
-//     }
-//     hideLoader();
-//     currentPage++;
-//   } catch (error) {
-//     console.error('Błąd pobierania danych:', error);
-//   }
-// }
-
-// loadMoreButton.addEventListener('click', fetchMoviesPopular);
