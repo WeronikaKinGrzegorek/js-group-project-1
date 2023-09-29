@@ -1,10 +1,8 @@
 import { Notify } from 'notiflix';
 import 'notiflix/dist/notiflix-3.2.6.min.css';
-import { handleMovieClick } from './modal-movie';
+import { displaySavedMovies } from './draw-movie';
 
-const queueButton = document.querySelector('#queueButton');
-let queue = JSON.parse(localStorage.getItem('movieQueue')) || [];
-
+const queueButton = document.querySelector('#queueButtonLibrary');
 export function addToQueue(movieData) {
   const movieId = movieData.id;
   const isMovieInQueue = queue.some(movieInQueue => {
@@ -25,9 +23,9 @@ export function addToQueue(movieData) {
 }
 
 export function displayQueue() {
-  console.log(queue);
+  displaySavedMovies();
 }
 
 queueButton.addEventListener('click', () => {
-  displayQueue(queue);
+  displayQueue();
 });
