@@ -3,49 +3,110 @@ $primary-text-color: #fff;
 $primary-button-color: #333;
 $secondary-button-color: #555;
 
-// .container {
-//   max-width: 1200px;
-//   margin: 0 auto;
-//   padding: 20px;
-// }
-
-.movies {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
+.gallery-home {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 20px;
+  background-image: repeating-linear-gradient(
+    to right,
+    getColor('footer-bg'),
+    getColor('footer-bg') 130px,
+    getColor('text-1') 130px,
+    getColor('text-1') 150px
+  );
+  padding-top: 230px;
+
+  transition: justify-content 0.3s ease;
 
   @media screen and (min-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
+    justify-content: space-between;
+    transition: justify-content 0.2s ease;
+    padding-top: 213px;
   }
 
   @media screen and (min-width: 1024px) {
-    grid-template-columns: repeat(3, 1fr);
+    justify-content: space-between;
+    transition: justify-content 0.2s ease;
   }
+  .gallery__list-item {
+ 
+  transition: all 0.3s ease; /* Dodajemy płynność dla efektu przejścia */
+  transform: perspective(1000px) scale(1) translateZ(0);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Cień dla karty filmu */
+  position: relative;
+}
+
+.gallery__list-item:hover {
+  transform: perspective(1000px) scale(1.1) translateZ(20px); /* Efekt 3D i powiększenie */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4); /* Wzmocniony cień przy najechaniu */
+  position: relative;
+  z-index: 1;
+  background-color: #fff;
+}
 }
 
 .movie {
-  background-color: #fff;
-  border: 1px solid #ccc;
-  padding: 10px;
-  text-align: center;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  text-align: left;
+
+  @media screen and (max-width: 767px) {
+    width: calc(100% - 40px);
+  }
+
+  @media screen and (min-width: 768px) {
+    width: calc(50% - 20px);
+  }
+
+  @media screen and (min-width: 1024px) {
+    width: calc(33.33% - 20px);
+    max-width: 394px;
+  }
 
   img {
-    max-width: 100%;
-    height: auto;
+    display: block;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 100%;
+    object-fit: cover;
+    transition: height 0.3s ease;
+    margin-bottom: 10px;
+
+    @media screen and (max-width: 767px) {
+      height: 443px;
+      height: auto;
+    }
+
+    @media screen and (min-width: 768px) {
+      height: 494px;
+      height: auto;
+    }
+
+    @media screen and (min-width: 1280px) {
+      height: auto;
+      width: 100%;
+    }
   }
 }
 
 button#loadMore {
   display: block;
   margin: 20px auto;
-  padding: 10px 20px;
-  background-color: $primary-button-color;
-  color: $primary-text-color;
+  transition: all 0.3s ease;
+  background-color: #FF4500;
+  color: white;
   border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
   cursor: pointer;
+  text-transform: uppercase;
 
   &:hover {
-    background-color: $secondary-button-color;
+  transform: scale(1.1) translateZ(5px);
+  box-shadow: 0 0 20px rgba(255, 69, 0, 0.5);
+  background-color: #FF6347;
   }
 }
 
@@ -88,27 +149,11 @@ button#loadMore {
   font-size: 30px;
   cursor: pointer;
 }
-
-.modal-left {
-  float: left;
-  width: 40%;
+.movie-title {
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
-.modal-right {
-  float: right;
-  width: 60%;
-}
-
-.modal-buttons {
-  text-align: right;
-  margin-top: 20px;
-}
-
-@keyframes slide-up {
-  from {
-    transform: translateY(100%);
-  }
-  to {
-    transform: translateY(0);
-  }
+.movie-info {
+  color: orange;
 }
