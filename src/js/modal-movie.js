@@ -3,7 +3,7 @@ import { addToQueue } from './add-queue';
 import { addToWatchlist } from './add-watchlist.js';
 import { fetchGenres } from './fetch-genres.js';
 import { drawMovies } from './draw-movie.js';
-import { fetchMovies } from './fetch.js';
+import { getFilmDetails } from './fetch.js';
 
 const modal = document.getElementById('movieModal');
 const modalContent = modal.querySelector('.modal-content');
@@ -120,22 +120,24 @@ function handleAnyOutsideClick(event) {
 
 export async function handleMovieClick(event) {
   try {
-    const moviesDetails = await fetchMovies();
-    console.log(moviesDetails);
     const movieElement = event.target.closest('.gallery__list-item');
+    console.log(movieElement);
+    // const libraryMovieElement = event.target.closest('.librarylist-item');
 
     if (movieElement) {
-      const movieIndex = Array.from(moviesContainer.children).indexOf(movieElement);
-      console.log(movieIndex);
-      const movieData = moviesDetails[movieIndex];
+      const movieId = movieElement.dataset.movieid;
+      console.log(movieId);
+      movieData = await getFilmDetails(movieId);
 
-      openModal(movieData);
+      // console.log(getFilmDetails(movieId));
+
+      await openModal(movieData);
     }
   } catch (error) {
     console.error(error);
   }
 }
-
+// console.log(movieData);
 document.addEventListener('click', handleMovieClick);
 
 const modalCloseButton = document.getElementById('modalCloseButton');
