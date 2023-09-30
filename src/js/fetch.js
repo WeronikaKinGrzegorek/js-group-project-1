@@ -41,7 +41,5 @@ export async function getFilmDetails(movieId) {
     params: { language: 'en-US' },
     headers: { accept: 'application/json' },
   };
-  axios.request(options).then(function (response) {
-    console.log(response.data);
-  });
+  return axios.request(options).then(response => response.data);
 }

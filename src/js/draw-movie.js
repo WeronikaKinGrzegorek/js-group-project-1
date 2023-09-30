@@ -15,7 +15,7 @@ export async function drawMovies(inputValue, page = 1, pageSize = 18) {
   try {
     // Pobierz listę gatunków filmowych
     const genres = await fetchGenres();
-
+    console.log(genres);
     // Pobierz filmy z API
     const movies = await fetchMovies(inputValue, page);
 

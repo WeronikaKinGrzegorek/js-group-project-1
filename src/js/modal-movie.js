@@ -6,7 +6,7 @@ import { drawMovies } from './draw-movie.js';
 import { getFilmDetails } from './fetch.js';
 
 const modal = document.getElementById('movieModal');
-const modalContent = modal.querySelector('.modal-content');
+// const modalContent = modal.querySelector('.modal-content');
 const modalPoster = modal.querySelector('#modalPoster');
 const modalTitle = modal.querySelector('#modalTitle');
 const modalRating = modal.querySelector('#modalRating');
@@ -18,7 +18,8 @@ const watchedButton = modal.querySelector('#watchedButton'); // dodaj do obejrza
 const watchlistButton = modal.querySelector('#watchlistButton'); // dodaj do kolejki
 const trailerLink = modal.querySelector('#trailerLink');
 
-const moviesContainer = document.querySelector('.gallery__list');
+const BASE_POSTER_PATH = 'https://image.tmdb.org/t/p/w500';
+// const moviesContainer = document.querySelector('.gallery__list');
 // const apiKey = '55e390226d2f3f6feba5afe684a5a044';
 // const loadMoreButton = document.getElementById('loadMore');
 // let currentPage = 1;
@@ -51,13 +52,24 @@ async function fetchGenreOnce(genreId) {
 
 fetchGenreOnce();
 
-function formatDate(dateString) {
-  const date = new Date(dateString);
-  return date.getFullYear();
-}
+// function formatDate(dateString) {
+//   const date = new Date(dateString);
+//   return date.getFullYear();
+// }
 
 async function openModal(movieData) {
-  modalPoster.src = `https://image.tmdb.org/t/p/w300${movieData.poster_path}`;
+  console.log(movieData);
+  const posterPath = movieData.poster_path
+    ? `${BASE_POSTER_PATH}${movieData.poster_path}`
+    : 'https://moviereelist.com/wp-content/uploads/2019/07/poster-placeholder.jpg';
+
+  // const genreNames = movieData.genres
+  //   .map(genreId => {
+  //     fetchGenreOnce(genreId);
+  //   })
+  //   .join(', ');
+
+  modalPoster.src = posterPath;
   modalPoster.alt = movieData.title;
 
   modalTitle.textContent = movieData.title.toUpperCase();
@@ -65,11 +77,11 @@ async function openModal(movieData) {
   modalPopularity.textContent = movieData.popularity;
   modalOriginalTitle.textContent = movieData.original_title;
 
-  const genreIds = movieData.genre_ids;
+  const genreIds = movieData.genres;
   const genreNames = genreIds.map(async genreId => await fetchGenreOnce(genreId));
   const resolvedGenreNames = await Promise.all(genreNames);
 
-  modalGenres.textContent = resolvedGenreNames.join(', ');
+  modalGenres.textContent = resolvedGenreNames;
   modalOverview.textContent = movieData.overview;
 
   watchedButton.addEventListener('click', watched, true);
@@ -95,7 +107,7 @@ function watched() {
 }
 
 function closeModal() {
-  const modal = document.getElementById('movieModal');
+  // const modal = document.getElementById('movieModal');
   modal.style.display = 'none';
 
   watchedButton.removeEventListener('click', watched, true);
@@ -112,6 +124,7 @@ function handleEscKey(event) {
     closeModal();
   }
 }
+
 function handleAnyOutsideClick(event) {
   if (event.target === modal) {
     closeModal();
@@ -129,16 +142,69 @@ export async function handleMovieClick(event) {
       console.log(movieId);
       movieData = await getFilmDetails(movieId);
 
-      // console.log(getFilmDetails(movieId));
-
       await openModal(movieData);
     }
   } catch (error) {
     console.error(error);
   }
 }
-// console.log(movieData);
+
 document.addEventListener('click', handleMovieClick);
 
 const modalCloseButton = document.getElementById('modalCloseButton');
 modalCloseButton.addEventListener('click', closeModal);
+
+// try {
+
+// const detailsOfClickedMovie = movieData.map(
+//   ({
+//     poster_path,
+//     genre_ids,
+//     id,
+//     title,
+//     vote_average,
+//     popularity,
+//     original_title,
+//     overview,
+//   }) => {
+//     if (!detailsOfClickedMovie || detailsOfClickedMovie.length === 0) {
+//       return;
+//     }
+//     console.log(detailsOfClickedMovie);
+//     const posterPath = poster_path
+//       ? `${BASE_POSTER_PATH}${poster_path}`
+//       : 'https://moviereelist.com/wp-content/uploads/2019/07/poster-placeholder.jpg';
+
+//     const genreNames = genre_ids
+//       .map(genreId => {
+//         fetchGenreOnce(genreId);
+//       })
+//       .join(', ');
+
+//     const trailerLinkUrl = `https://www.youtube.com/results?search_query=${title}+trailer`;
+
+//     return ` <div class="modal-content">
+//     <span id="modalCloseButton" class="close-button">&times;</span>
+//     <div class="modal-left">
+//           <img src="${posterPath}" alt="${title}" id="modalPoster"/>
+//         </div>
+//     <div class="modal-right">
+//       <h3 id="modalTitle">${title.toUpperCase()}</h3>
+//       <p>Średnia ocena: <span id="modalRating">${vote_average}</span></p>
+//       <p>Popularność: <span id="modalPopularity">${popularity}</span></p>
+//       <p>Oryginalny tytuł: <span id="modalOriginalTitle">${original_title}</span></p>
+//       <p>Gatunek: <span id="modalGenres">${genreNames}</span></p>
+//       <p>Opis: <span id="modalOverview">${overview}</span></p>
+//       <div class="modal-buttons">
+//         <button id="watchlistButton">Dodaj do obejrzenia</button>
+//         <button id="watchedButton" data-action="watch">Dodaj do obejrzanych</button>
+//       </div>
+//       <p><a id="trailerLink" target="_blank" href="${trailerLinkUrl}">Obejrzyj trailer</a></p>
+//     </div>
+//   </div>`;
+//   },
+// );
+
+// modal.insertAdjacentHTML('beforeend', detailsOfClickedMovie);
+// } catch (error) {
+//   console.error(error);

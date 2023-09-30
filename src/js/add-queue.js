@@ -28,6 +28,6 @@ export function displayQueue() {
   console.log(queue);
 }
 
-queueButton.addEventListener('click', () => {
-  displayQueue(queue);
-});
+// queueButton.addEventListener('click', () => {
+//   displayQueue(queue);
+// });
