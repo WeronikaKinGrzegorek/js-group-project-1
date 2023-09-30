@@ -2,7 +2,7 @@ import { Notify } from 'notiflix';
 import 'notiflix/dist/notiflix-3.2.6.min.css';
 import { handleMovieClick } from './modal-movie';
 
-const queueButton = document.querySelector('#queueButton');
+const queueButton = document.querySelector('#queueButtonLibrary');
 let queue = JSON.parse(localStorage.getItem('movieQueue')) || [];
 
 export function addToQueue(movieData) {

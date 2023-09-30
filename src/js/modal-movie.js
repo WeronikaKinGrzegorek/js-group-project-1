@@ -5,11 +5,25 @@ import { fetchGenres } from './fetch-genres.js';
 import { drawMovies } from './draw-movie.js';
 import { fetchMovies } from './fetch.js';
 
+const modal = document.getElementById('movieModal');
+const modalContent = modal.querySelector('.modal-content');
+const modalPoster = modal.querySelector('#modalPoster');
+const modalTitle = modal.querySelector('#modalTitle');
+const modalRating = modal.querySelector('#modalRating');
+const modalPopularity = modal.querySelector('#modalPopularity');
+const modalOriginalTitle = modal.querySelector('#modalOriginalTitle');
+const modalGenres = modal.querySelector('#modalGenres');
+const modalOverview = modal.querySelector('#modalOverview');
+const watchedButton = modal.querySelector('#watchedButton'); // dodaj do obejrzanych
+const watchlistButton = modal.querySelector('#watchlistButton'); // dodaj do kolejki
+const trailerLink = modal.querySelector('#trailerLink');
+
 const moviesContainer = document.querySelector('.gallery__list');
 // const apiKey = '55e390226d2f3f6feba5afe684a5a044';
 // const loadMoreButton = document.getElementById('loadMore');
 // let currentPage = 1;
 // let data;
+let movieData;
 let genres = [];
 document.addEventListener('DOMContentLoaded', function () {
   let currentPage = 1;
@@ -43,35 +57,25 @@ function formatDate(dateString) {
 }
 
 async function openModal(movieData) {
-  const modal = document.getElementById('movieModal');
-  const modalContent = modal.querySelector('.modal-content');
-  const modalPoster = modal.querySelector('#modalPoster');
   modalPoster.src = `https://image.tmdb.org/t/p/w300${movieData.poster_path}`;
   modalPoster.alt = movieData.title;
-  const modalTitle = modal.querySelector('#modalTitle');
+
   modalTitle.textContent = movieData.title.toUpperCase();
-  const modalRating = modal.querySelector('#modalRating');
   modalRating.textContent = movieData.vote_average;
-  const modalPopularity = modal.querySelector('#modalPopularity');
   modalPopularity.textContent = movieData.popularity;
-  const modalOriginalTitle = modal.querySelector('#modalOriginalTitle');
   modalOriginalTitle.textContent = movieData.original_title;
+
   const genreIds = movieData.genre_ids;
   const genreNames = genreIds.map(async genreId => await fetchGenreOnce(genreId));
   const resolvedGenreNames = await Promise.all(genreNames);
-  const modalGenres = modal.querySelector('#modalGenres');
+
   modalGenres.textContent = resolvedGenreNames.join(', ');
-  const modalOverview = modal.querySelector('#modalOverview');
   modalOverview.textContent = movieData.overview;
-  const watchedButton = modal.querySelector('#watchedButton');
-  watchedButton.addEventListener('click', () => {
-    addToWatchlist(movieData);
-  });
-  const watchlistButton = modal.querySelector('#watchlistButton');
-  watchlistButton.addEventListener('click', () => {
-    addToQueue(movieData);
-  });
-  const trailerLink = modal.querySelector('#trailerLink');
+
+  watchedButton.addEventListener('click', watched, true);
+
+  watchlistButton.addEventListener('click', que, true); // dodaj do kolejki
+
   trailerLink.href = `https://www.youtube.com/results?search_query=${movieData.title}+trailer`;
   modal.style.display = 'block';
 
@@ -79,17 +83,25 @@ async function openModal(movieData) {
   document.addEventListener('keydown', handleEscKey);
 
   // Dodaj obsługę zamykania modala po kliknięciu w obszar poza nim.
-  modal.addEventListener('click', function (event) {
-    if (event.target === modal) {
-      closeModal();
-    }
-  });
+  modal.addEventListener('click', handleAnyOutsideClick);
+}
+
+function que() {
+  addToQueue(movieData); // dodaj do kolejki
+}
+
+function watched() {
+  addToWatchlist(movieData);
 }
 
 function closeModal() {
   const modal = document.getElementById('movieModal');
   modal.style.display = 'none';
 
+  watchedButton.removeEventListener('click', watched, true);
+  watchlistButton.removeEventListener('click', que, true);
+
+  modal.removeEventListener('click', handleAnyOutsideClick);
   // Usuń obsługę zdarzenia klawisza "Esc" po zamknięciu modala.
   document.removeEventListener('keydown', handleEscKey);
 }
@@ -97,6 +109,11 @@ function closeModal() {
 // Dodaj funkcję obsługującą zdarzenie naciśnięcia klawisza "Esc".
 function handleEscKey(event) {
   if (event.key === 'Escape') {
+    closeModal();
+  }
+}
+function handleAnyOutsideClick(event) {
+  if (event.target === modal) {
     closeModal();
   }
 }
