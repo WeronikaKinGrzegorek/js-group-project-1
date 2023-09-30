@@ -1,4 +1,3 @@
-import { showLoader, hideLoader } from './loader.js';
 import { addToQueue } from './add-queue';
 import { addToWatchlist } from './add-watchlist.js';
 import { fetchGenres } from './fetch-genres.js';
@@ -6,7 +5,7 @@ import { drawMovies } from './draw-movie.js';
 import { getFilmDetails } from './fetch.js';
 
 const modal = document.getElementById('movieModal');
-// const modalContent = modal.querySelector('.modal-content');
+
 const modalPoster = modal.querySelector('#modalPoster');
 const modalTitle = modal.querySelector('#modalTitle');
 const modalRating = modal.querySelector('#modalRating');
@@ -19,11 +18,7 @@ const watchlistButton = modal.querySelector('#watchlistButton'); // dodaj do kol
 const trailerLink = modal.querySelector('#trailerLink');
 
 const BASE_POSTER_PATH = 'https://image.tmdb.org/t/p/w500';
-// const moviesContainer = document.querySelector('.gallery__list');
-// const apiKey = '55e390226d2f3f6feba5afe684a5a044';
-// const loadMoreButton = document.getElementById('loadMore');
-// let currentPage = 1;
-// let data;
+
 let movieData;
 let genres = [];
 document.addEventListener('DOMContentLoaded', function () {
@@ -63,12 +58,6 @@ async function openModal(movieData) {
     ? `${BASE_POSTER_PATH}${movieData.poster_path}`
     : 'https://moviereelist.com/wp-content/uploads/2019/07/poster-placeholder.jpg';
 
-  // const genreNames = movieData.genres
-  //   .map(genreId => {
-  //     fetchGenreOnce(genreId);
-  //   })
-  //   .join(', ');
-
   modalPoster.src = posterPath;
   modalPoster.alt = movieData.title;
 
@@ -107,7 +96,6 @@ function watched() {
 }
 
 function closeModal() {
-  // const modal = document.getElementById('movieModal');
   modal.style.display = 'none';
 
   watchedButton.removeEventListener('click', watched, true);
@@ -153,58 +141,3 @@ document.addEventListener('click', handleMovieClick);
 
 const modalCloseButton = document.getElementById('modalCloseButton');
 modalCloseButton.addEventListener('click', closeModal);
-
-// try {
-
-// const detailsOfClickedMovie = movieData.map(
-//   ({
-//     poster_path,
-//     genre_ids,
-//     id,
-//     title,
-//     vote_average,
-//     popularity,
-//     original_title,
-//     overview,
-//   }) => {
-//     if (!detailsOfClickedMovie || detailsOfClickedMovie.length === 0) {
-//       return;
-//     }
-//     console.log(detailsOfClickedMovie);
-//     const posterPath = poster_path
-//       ? `${BASE_POSTER_PATH}${poster_path}`
-//       : 'https://moviereelist.com/wp-content/uploads/2019/07/poster-placeholder.jpg';
-
-//     const genreNames = genre_ids
-//       .map(genreId => {
-//         fetchGenreOnce(genreId);
-//       })
-//       .join(', ');
-
-//     const trailerLinkUrl = `https://www.youtube.com/results?search_query=${title}+trailer`;
-
-//     return ` <div class="modal-content">
-//     <span id="modalCloseButton" class="close-button">&times;</span>
-//     <div class="modal-left">
-//           <img src="${posterPath}" alt="${title}" id="modalPoster"/>
-//         </div>
-//     <div class="modal-right">
-//       <h3 id="modalTitle">${title.toUpperCase()}</h3>
-//       <p>Średnia ocena: <span id="modalRating">${vote_average}</span></p>
-//       <p>Popularność: <span id="modalPopularity">${popularity}</span></p>
-//       <p>Oryginalny tytuł: <span id="modalOriginalTitle">${original_title}</span></p>
-//       <p>Gatunek: <span id="modalGenres">${genreNames}</span></p>
-//       <p>Opis: <span id="modalOverview">${overview}</span></p>
-//       <div class="modal-buttons">
-//         <button id="watchlistButton">Dodaj do obejrzenia</button>
-//         <button id="watchedButton" data-action="watch">Dodaj do obejrzanych</button>
-//       </div>
-//       <p><a id="trailerLink" target="_blank" href="${trailerLinkUrl}">Obejrzyj trailer</a></p>
-//     </div>
-//   </div>`;
-//   },
-// );
-
-// modal.insertAdjacentHTML('beforeend', detailsOfClickedMovie);
-// } catch (error) {
-//   console.error(error);
