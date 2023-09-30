@@ -46,4 +46,3 @@ export async function getFilmDetails(id) {
     console.log('Oops, an error occurred');
   }
 }
-// // getFilmDetails();
