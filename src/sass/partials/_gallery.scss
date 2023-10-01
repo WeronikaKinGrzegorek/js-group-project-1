@@ -83,6 +83,14 @@
         font-size: 12px;
         line-height: 16px;
       }
+      > div {
+        display: none;
+        width: 26px;
+        color: getColor('text-1');
+        background-color: getColor('active');
+        padding: 5px;
+        border-radius: 5px;
+      }
     }
   }
 }

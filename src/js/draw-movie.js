@@ -1,62 +1,35 @@
-import { fetchMovies } from './fetch';
-import { fetchGenres } from './fetch-genres';
+import { fetchMovies } from './fetch.js';
+import { fetchGenres } from './fetch-genres.js';
 
-// const BASE_API_URL = 'https://api.themoviedb.org/3';
-
+// Stała z bazowym adresem plakatów filmowych
 const BASE_POSTER_PATH = 'https://image.tmdb.org/t/p/w500';
 
+// Elementy DOM
 const moviesGallery = document.querySelector('.gallery__list');
 
-export async function drawMovies(inputValue, append = false) {
-  const genres = await fetchGenres();
-  console.log('Genres:', genres);
-  if (typeof inputValue !== 'string') {
-    inputValue = inputValue.toString();
-  }
-  const movies = await fetchMovies(inputValue, page);
+// Tablica do przechowywania adresów plakatów filmowych
+const posterArray = [];
 
-  if (!movies.results || movies.results.length === 0) {
-    return;
-  }
-
-  const movieList = movies.results
-    .map(({ poster_path, genre_ids, id, release_date, title }) => {
-      const posterPath = poster_path
-        ? `${BASE_POSTER_PATH}${poster_path}`
-        : 'https://moviereelist.com/wp-content/uploads/2019/07/poster-placeholder.jpg';
-
-      const genreNames = genre_ids
-        .map(genreId => {
-          const foundGenre = genres.find(genre => genre.id === genreId);
-          return foundGenre ? foundGenre.name : 'Unknown Genre';
-        })
-        .join(', ');
-
-      return `<li class="gallery__list-item">
-        <img src="${posterPath}" alt="${title}" movie-id="${id}"/>
-        <h3>${title.toUpperCase()}</h3>
-        <p>${genreNames} | <span>${release_date.slice(0, 4)}</span></p>
-      </li>`;
-    })
-    .join('');
-
-  if (append) {
-    moviesGallery.insertAdjacentHTML('beforeend', movieList);
-  } else {
-    moviesGallery.innerHTML = movieList;
-  }
-}
-
-export async function displaySavedMovies() {
+// Funkcja do rysowania filmów
+export async function drawMovies(moreMovies, inputValue, page = 1, pageSize = 18) {
   try {
+    // Pobierz listę gatunków filmowych
     const genres = await fetchGenres();
-    console.log('Genres:', genres);
-    const savedMovies = JSON.parse(localStorage.getItem('movieQueue')) || [];
-    const containerOfSavedMovies = document.querySelector('.library');
-    containerOfSavedMovies.innerHTML = '';
+    console.log(genres);
 
-    const galleryOfSavedMovies = savedMovies
-      .map(({ poster_path, genre_ids, id, release_date, title }) => {
+    let movies;
+
+    // Pobierz filmy z API
+    if (moreMovies.length > 0) {
+      movies = moreMovies; //await fetchMovies(inputValue, page);
+    } else {
+      movies = await fetchMovies(inputValue, page);
+    }
+    console.log(movies);
+    // Przetwórz filmy i dodaj je do galerii
+    const galleryOfMovies = movies
+      .slice(0, pageSize)
+      .map(({ poster_path, genre_ids, id, release_date, title, vote_average }) => {
         const posterPath = poster_path
           ? `${BASE_POSTER_PATH}${poster_path}`
           : 'https://moviereelist.com/wp-content/uploads/2019/07/poster-placeholder.jpg';
@@ -64,25 +37,22 @@ export async function displaySavedMovies() {
         if (!posterArray.includes(posterPath)) {
           posterArray.push(posterPath);
         }
-        const movieTitle = title ? title.toUpperCase() : 'Unknown Title';
+        // const voteAverage = vote_average.slice(0, 3);
         const genreNames = genre_ids
-          ? genre_ids
-              .map(genreId => {
-                const foundGenre = genres.find(genre => genre.id === genreId);
-                return foundGenre ? foundGenre.name : 'Unknown Genre';
-              })
-              .join(', ')
-          : 'Unknown Genre';
-        const movieReleaseDate = release_date ? release_date.slice(0, 4) : 'Unknown Release Date';
-        return `<li class="library__list-item" data-movie-id="${id}">
-            <img src="${posterPath}" alt="${movieTitle}" movie-id="${id}"/>
-            <h3>${movieTitle}</h3>
-            <p>${genreNames} | <span>${movieReleaseDate}</span></p>
-          </li>`;
-      })
-      .join('');
+          .map(genreId => {
+            const foundGenre = genres.find(genre => genre.id === genreId);
+            return foundGenre ? foundGenre.name : 'Unknown Genre';
+          })
+          .join(', ');
 
-    containerOfSavedMovies.insertAdjacentHTML('beforeend', galleryOfSavedMovies);
+        return `<li class="gallery__list-item" data-movieid="${id}">
+          <img src="${posterPath}" alt="${title}" movie-id="${id}"/>
+          <h3>${title.toUpperCase()}</h3>
+          <p>${genreNames} | <span>${release_date.slice(0, 4)}</span></p>
+                </li>`;
+      });
+
+    moviesGallery.insertAdjacentHTML('beforeend', galleryOfMovies);
   } catch (error) {
     console.error(error);
   }

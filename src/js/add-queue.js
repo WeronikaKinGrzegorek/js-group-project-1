@@ -1,11 +1,13 @@
 import { Notify } from 'notiflix';
 import 'notiflix/dist/notiflix-3.2.6.min.css';
-import { displaySavedMovies } from './draw-movie';
+import { handleMovieClick } from './modal-movie';
 
 const queueButton = document.querySelector('#queueButtonLibrary');
+
 const savedMovies = JSON.parse(localStorage.getItem('movieQueue')) || [];
 const containerOfSavedMovies = document.querySelector('.library');
 const BASE_POSTER_PATH = 'https://image.tmdb.org/t/p/w500';
+
 
 export function addToQueue(movieData) {
   const movieId = movieData.id;
@@ -25,6 +27,7 @@ export function addToQueue(movieData) {
     Notify.failure(`Movie "${movieData.title}" is already in queue list.`);
   }
 }
+
 
 async function displaySavedMovies(savedMovies) {
   try {
@@ -60,3 +63,4 @@ async function displaySavedMovies(savedMovies) {
 queueButton.addEventListener('click', () => {
   displaySavedMovies(savedMovies);
 });
+
