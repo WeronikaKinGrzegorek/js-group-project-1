@@ -1,16 +1,26 @@
-import { showLoader, hideLoader } from './loader.js';
 import { addToQueue } from './add-queue';
 import { addToWatchlist } from './add-watchlist.js';
 import { fetchGenres } from './fetch-genres.js';
 import { drawMovies } from './draw-movie.js';
-import { fetchMovies } from './fetch.js';
+import { getFilmDetails } from './fetch.js';
 
-const moviesContainer = document.querySelector('.gallery__list');
-// const apiKey = '55e390226d2f3f6feba5afe684a5a044';
-// const loadMoreButton = document.getElementById('loadMore');
-// let currentPage = 1;
-// let data;
-let genres = [];
+const modal = document.getElementById('movieModal');
+
+const modalPoster = modal.querySelector('#modalPoster');
+const modalTitle = modal.querySelector('#modalTitle');
+const modalRating = modal.querySelector('#modalRating');
+const modalPopularity = modal.querySelector('#modalPopularity');
+const modalOriginalTitle = modal.querySelector('#modalOriginalTitle');
+const modalGenres = modal.querySelector('#modalGenres');
+const modalOverview = modal.querySelector('#modalOverview');
+const watchedButton = modal.querySelector('#watchedButton'); // dodaj do obejrzanych
+const watchlistButton = modal.querySelector('#watchlistButton'); // dodaj do kolejki
+const trailerLink = modal.querySelector('#trailerLink');
+
+const BASE_POSTER_PATH = 'https://image.tmdb.org/t/p/w500';
+
+let movieData;
+
 document.addEventListener('DOMContentLoaded', function () {
   let currentPage = 1;
 
@@ -27,51 +37,36 @@ document.addEventListener('DOMContentLoaded', function () {
   loadMoreButton.addEventListener('click', loadMoreMovies);
 });
 
-async function fetchGenreOnce(genreId) {
-  if (genres.length === 0) {
-    genres = await fetchGenres();
-  }
-  const foundGenre = genres.find(genre => genre.id === genreId);
-  return foundGenre ? foundGenre.name : 'Nieznany';
-}
-
-fetchGenreOnce();
-
-function formatDate(dateString) {
-  const date = new Date(dateString);
-  return date.getFullYear();
-}
-
 async function openModal(movieData) {
-  const modal = document.getElementById('movieModal');
-  const modalContent = modal.querySelector('.modal-content');
-  const modalPoster = modal.querySelector('#modalPoster');
-  modalPoster.src = `https://image.tmdb.org/t/p/w300${movieData.poster_path}`;
+  console.log(movieData);
+  const posterPath = movieData.poster_path
+    ? `${BASE_POSTER_PATH}${movieData.poster_path}`
+    : 'https://moviereelist.com/wp-content/uploads/2019/07/poster-placeholder.jpg';
+
+  modalPoster.src = posterPath;
   modalPoster.alt = movieData.title;
-  const modalTitle = modal.querySelector('#modalTitle');
+
   modalTitle.textContent = movieData.title.toUpperCase();
-  const modalRating = modal.querySelector('#modalRating');
-  modalRating.textContent = movieData.vote_average;
-  const modalPopularity = modal.querySelector('#modalPopularity');
+  modalRating.textContent = `${movieData.vote_average} / ${movieData.vote_count}`;
   modalPopularity.textContent = movieData.popularity;
-  const modalOriginalTitle = modal.querySelector('#modalOriginalTitle');
   modalOriginalTitle.textContent = movieData.original_title;
-  const genreIds = movieData.genre_ids;
-  const genreNames = genreIds.map(async genreId => await fetchGenreOnce(genreId));
-  const resolvedGenreNames = await Promise.all(genreNames);
-  const modalGenres = modal.querySelector('#modalGenres');
-  modalGenres.textContent = resolvedGenreNames.join(', ');
-  const modalOverview = modal.querySelector('#modalOverview');
+
+  const genres = movieData.genres;
+
+  const genreNames = genres
+    .map(genre => {
+      return genre.name ? genre.name : 'Unknown Genre';
+    })
+    .join(', ');
+
+  modalGenres.textContent = genreNames;
+
   modalOverview.textContent = movieData.overview;
-  const watchedButton = modal.querySelector('#watchedButton');
-  watchedButton.addEventListener('click', () => {
-    addToWatchlist(movieData);
-  });
-  const watchlistButton = modal.querySelector('#watchlistButton');
-  watchlistButton.addEventListener('click', () => {
-    addToQueue(movieData);
-  });
-  const trailerLink = modal.querySelector('#trailerLink');
+
+  watchedButton.addEventListener('click', watched, true);
+
+  watchlistButton.addEventListener('click', que, true); // dodaj do kolejki
+
   trailerLink.href = `https://www.youtube.com/results?search_query=${movieData.title}+trailer`;
   modal.style.display = 'block';
 
@@ -79,17 +74,24 @@ async function openModal(movieData) {
   document.addEventListener('keydown', handleEscKey);
 
   // Dodaj obsługę zamykania modala po kliknięciu w obszar poza nim.
-  modal.addEventListener('click', function (event) {
-    if (event.target === modal) {
-      closeModal();
-    }
-  });
+  modal.addEventListener('click', handleAnyOutsideClick);
+}
+
+function que() {
+  addToQueue(movieData); // dodaj do kolejki
+}
+
+function watched() {
+  addToWatchlist(movieData);
 }
 
 function closeModal() {
-  const modal = document.getElementById('movieModal');
   modal.style.display = 'none';
 
+  watchedButton.removeEventListener('click', watched, true);
+  watchlistButton.removeEventListener('click', que, true);
+
+  modal.removeEventListener('click', handleAnyOutsideClick);
   // Usuń obsługę zdarzenia klawisza "Esc" po zamknięciu modala.
   document.removeEventListener('keydown', handleEscKey);
 }
@@ -101,18 +103,24 @@ function handleEscKey(event) {
   }
 }
 
+function handleAnyOutsideClick(event) {
+  if (event.target === modal) {
+    closeModal();
+  }
+}
+
 export async function handleMovieClick(event) {
   try {
-    const moviesDetails = await fetchMovies();
-    console.log(moviesDetails);
     const movieElement = event.target.closest('.gallery__list-item');
+    console.log(movieElement);
+    // const libraryMovieElement = event.target.closest('.librarylist-item');
 
     if (movieElement) {
-      const movieIndex = Array.from(moviesContainer.children).indexOf(movieElement);
-      console.log(movieIndex);
-      const movieData = moviesDetails[movieIndex];
+      const movieId = movieElement.dataset.movieid;
+      console.log(movieId);
+      movieData = await getFilmDetails(movieId);
 
-      openModal(movieData);
+      await openModal(movieData);
     }
   } catch (error) {
     console.error(error);
