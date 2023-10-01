@@ -13,8 +13,10 @@ body {
 }
 
 .modal-team-content {
-  background: linear-gradient(to right, #f12711, #f5af19);
   background-image: url(../images/flame2.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   border-radius: 10px;
   color: white;
   position: fixed;
@@ -40,11 +42,20 @@ body {
 
 .leaders {
   padding-top: 15px;
-  padding-bottom: 10px;
+  padding-bottom: 15px;
 }
 
 h3 {
   padding-bottom: 8px;
+  font-size: 24px;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+p {
+  font-size: 18px;
 }
 
 .close-button {

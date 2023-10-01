@@ -4,7 +4,7 @@ import { fetchMovieDetails } from './js/fetch';
 import { showLoader, hideLoader } from './js/loader';
 import './js/dark-mode';
 import './sass/main.scss';
-import { closeModal } from './js/modal-team';
+import './js/modal-team';
 
 const form = document.querySelector('.search-form');
 const searchField = document.querySelector('[name="searchQuery"]');
