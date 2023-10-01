@@ -40,6 +40,7 @@
       border-radius: 5px;
       height: 443px;
       width: 280px;
+      margin-top: 15px;
       transition: all 0.3s ease;
       transform: perspective(1000px) scale(1) translateZ(0);
       //transform: perspective(1000px) scale(1) translateZ(0);
@@ -57,8 +58,8 @@
       }
 
       @include desktop {
-        height: 634px;
-        width: 394px;
+        height: 600px;
+        width: 380px;
       }
 
       > img {
@@ -86,12 +87,13 @@
         padding-top: 10px;
         padding-left: 5px;
         position: relative;
+        background-color: white;
       }
       > p {
         color: getColor('button-activebg');
         font-size: 12px;
         line-height: 16px;
-    
+        background-color: white;
         padding-left: 5px;
       }
       > div {

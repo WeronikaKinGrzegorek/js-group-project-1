@@ -60,7 +60,7 @@ async function displaySavedMovies(savedMovies) {
   }
 }
 
-queueButton.addEventListener('click', () => {
-  displaySavedMovies(savedMovies);
-});
+// queueButton.addEventListener('click', () => {
+//   displaySavedMovies(savedMovies);
+// });
 
