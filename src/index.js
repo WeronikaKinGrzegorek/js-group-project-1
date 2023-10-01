@@ -13,14 +13,16 @@ const moviesGallery = document.querySelector('.gallery__list');
 const btnLoadMore = document.getElementById('loadMore');
 
 let inputValue = '';
+let page = 1;
 
 form.addEventListener('submit', function (event) {
   event.preventDefault();
   const inputValue = searchField.value;
 
   moviesGallery.innerHTML = '';
-  drawMovies(inputValue);
-
+  drawMovies([], inputValue);
+  // musimy przywracać page do oryginalnej wartości żeby po nowym wyszukaniu wczytywać odpowiednią strone
+  page = 1;
   hideLoader(); // Ukryj loader po zakończeniu wyszukiwania filmów
 });
 
@@ -28,7 +30,7 @@ btnLoadMore.addEventListener('click', async () => {
   page += 1;
   const moreMovies = await fetchMovies(inputValue, page);
   if (moreMovies && moreMovies.length > 0) {
-    drawMovies(inputValue, true);
+    await drawMovies(moreMovies, inputValue);
   } else {
     btnLoadMore.disabled = true;
     btnLoadMore.textContent = 'No More Movies';
