@@ -47,11 +47,6 @@ async function fetchGenreOnce(genreId) {
 
 fetchGenreOnce();
 
-// function formatDate(dateString) {
-//   const date = new Date(dateString);
-//   return date.getFullYear();
-// }
-
 async function openModal(movieData) {
   console.log(movieData);
   const posterPath = movieData.poster_path
@@ -62,7 +57,7 @@ async function openModal(movieData) {
   modalPoster.alt = movieData.title;
 
   modalTitle.textContent = movieData.title.toUpperCase();
-  modalRating.textContent = movieData.vote_average;
+  modalRating.textContent = `${movieData.vote_average} / ${movieData.vote_count}`;
   modalPopularity.textContent = movieData.popularity;
   modalOriginalTitle.textContent = movieData.original_title;
 

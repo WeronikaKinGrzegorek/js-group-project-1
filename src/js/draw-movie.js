@@ -27,7 +27,7 @@ export async function drawMovies(inputValue, page = 1, pageSize = 18) {
     // Przetwórz filmy i dodaj je do galerii
     const galleryOfMovies = movies
       .slice(0, pageSize)
-      .map(({ poster_path, genre_ids, id, release_date, title }) => {
+      .map(({ poster_path, genre_ids, id, release_date, title, vote_average }) => {
         const posterPath = poster_path
           ? `${BASE_POSTER_PATH}${poster_path}`
           : 'https://moviereelist.com/wp-content/uploads/2019/07/poster-placeholder.jpg';
@@ -35,7 +35,7 @@ export async function drawMovies(inputValue, page = 1, pageSize = 18) {
         if (!posterArray.includes(posterPath)) {
           posterArray.push(posterPath);
         }
-
+        // const voteAverage = vote_average.slice(0, 3);
         const genreNames = genre_ids
           .map(genreId => {
             const foundGenre = genres.find(genre => genre.id === genreId);
@@ -47,6 +47,7 @@ export async function drawMovies(inputValue, page = 1, pageSize = 18) {
           <img src="${posterPath}" alt="${title}" movie-id="${id}"/>
           <h3>${title.toUpperCase()}</h3>
           <p>${genreNames} | <span>${release_date.slice(0, 4)}</span></p>
+        <div class="vote-average">${vote_average}</div>
         </li>`;
       });
 
