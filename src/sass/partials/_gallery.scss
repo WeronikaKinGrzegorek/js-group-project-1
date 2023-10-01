@@ -1,22 +1,23 @@
 .gallery {
-  margin: 0;
-  padding: 0;
   padding-top: 230px;
+
+    //   transition: justify-content 0.3s ease;
   @include tablet {
     padding-top: 213px;
   }
   &__list {
-    margin: 0;
+    // margin: 0;
     padding: 0;
+    // max-width: 280px;
+
+
     width: 100%;
     list-style: none;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 20px;
-    // max-width: 280px;
-
+   
     background-image: repeating-linear-gradient(
       to right,
       getColor('footer-bg'),
@@ -24,11 +25,14 @@
       getColor('text-1') 130px,
       getColor('text-1') 150px
     );
-
-    // @include tablet {
-    // }
+    
+      @include tablet {
+        gap: 32px;
+    }
     // @include desktop {
     // }
+
+  
 
     @include tablet {
       gap: 32px;

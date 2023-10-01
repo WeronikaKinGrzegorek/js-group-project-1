@@ -3,32 +3,7 @@ $primary-text-color: #fff;
 $primary-button-color: #333;
 $secondary-button-color: #555;
 
-.gallery-home{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-  background-image: repeating-linear-gradient(
-    to right,
-    getColor('footer-bg'),
-    getColor('footer-bg') 130px,
-    getColor('text-1') 130px,
-    getColor('text-1') 150px
-  );
-  padding-top: 230px;
 
-  transition: justify-content 0.3s ease;
-
-  @media screen and (min-width: 768px) {
-    justify-content: space-between;
-    transition: justify-content 0.2s ease;
-    padding-top: 213px;
-  }
-
-  @media screen and (min-width: 1024px) {
-    justify-content: space-between;
-    transition: justify-content 0.2s ease;
-  }
   .gallery__list-item {
  
   transition: all 0.3s ease; /* Dodajemy płynność dla efektu przejścia */
@@ -44,7 +19,7 @@ $secondary-button-color: #555;
   z-index: 1;
   background-color: #fff;
 }
-}
+
 
 .movie {
   background-color: transparent;
