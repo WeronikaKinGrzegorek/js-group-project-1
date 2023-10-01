@@ -25,7 +25,7 @@ export async function drawMovies(moreMovies, inputValue, page = 1, pageSize = 18
     } else {
       movies = await fetchMovies(inputValue, page);
     }
-
+    console.log(movies);
     // Przetwórz filmy i dodaj je do galerii
     const galleryOfMovies = movies
       .slice(0, pageSize)
@@ -49,8 +49,7 @@ export async function drawMovies(moreMovies, inputValue, page = 1, pageSize = 18
           <img src="${posterPath}" alt="${title}" movie-id="${id}"/>
           <h3>${title.toUpperCase()}</h3>
           <p>${genreNames} | <span>${release_date.slice(0, 4)}</span></p>
-        <div class="vote-average">${vote_average}</div>
-        </li>`;
+                </li>`;
       });
 
     moviesGallery.insertAdjacentHTML('beforeend', galleryOfMovies);

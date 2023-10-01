@@ -1,50 +1,60 @@
-// попередня версія поберає фільми з локального сховища
-// export function displayWatchedMovies() {
-//   const watchedMovies = JSON.parse(localStorage.getItem('movieWatchlist')) || [];
-//   const moviesContainer = document.querySelector('.library-gallery');
-//   moviesContainer.innerHTML = '';
-//   watchedMovies.forEach(movieData => {
-//     const movieElement = createMovieElement(movieData);
-//     moviesContainer.appendChild(movieElement);
-//   });
-// }
+const watchedMovies = JSON.parse(localStorage.getItem('movieWatchlist')) || [];
+console.log(watchedMovies);
+const watchedMoviesList = document.querySelector('.library');
+const watchedButton = document.getElementById('watchedButtonLibrary');
 
-import { addToWatchlist } from './add-watchlist.js';
+const BASE_POSTER_PATH = 'https://image.tmdb.org/t/p/w500';
 
-// версія коли беруться дані з API
-export function displayWatchedMovies() {
-  const watchedMovies = JSON.parse(localStorage.getItem('movieWatchlist')) || [];
-  console.log(watchedMovies);
-  const moviesContainer = document.querySelector('.library-gallery');
-  moviesContainer.innerHTML = '';
-
-  watchedMovies.forEach(async movieData => {
-    // Використовуйте функцію fetchMovies або інші методи для отримання додаткової інформації про фільм
-    const additionalMovieInfo = await fetchMovieInfo(movieData.id);
-
-    // Об'єднайте інформацію про фільм та додаткову інформацію, якщо вона доступна
-    const combinedMovieData = {
-      ...movieData,
-      ...additionalMovieInfo,
-    };
-
-    // Створіть елемент фільму на основі комбінованих даних
-    const movieElement = createMovieElement(combinedMovieData);
-    moviesContainer.appendChild(movieElement);
-  });
-}
-
-async function fetchMovieInfo(movieId) {
+export async function displayWatchedMovies(watchedMovies) {
   try {
-    const response = await fetch(`https://api.themoviedb.org/3/genre/movie/list/${movieId}`);
-    const data = await response.json();
-    // Обробіть дані та поверніть їх
-    return data;
+    watchedMoviesList.innerHTML = '';
+
+    const galleryOfWatchedMovies = watchedMovies.map(
+      ({ poster_path, genres, id, release_date, title, vote_average }) => {
+        const posterPath = poster_path
+          ? `${BASE_POSTER_PATH}${poster_path}`
+          : 'https://moviereelist.com/wp-content/uploads/2019/07/poster-placeholder.jpg';
+
+        const watchedMoviesGenres = genres;
+
+        const genreNames = watchedMoviesGenres
+          .map(genre => {
+            return genre.name ? genre.name : 'Unknown Genre';
+          })
+          .join(', ');
+
+        const voteAverage = vote_average.toFixed(1);
+
+        return `<li class="library-item" data-movieid="${id}">
+      <img src="${posterPath}" alt="${title}" movie-id="${id}"/>
+      <h3>${title.toUpperCase()}</h3>
+      <p>${genreNames} | <span>${release_date.slice(0, 4)}</span></p>
+    <div class="vote-average">${voteAverage}</div>
+    </li>`;
+      },
+    );
+
+    watchedMoviesList.insertAdjacentHTML('beforeend', galleryOfWatchedMovies);
   } catch (error) {
     console.error(error);
-    return {}; // Поверніть порожній об'єкт у разі помилки
   }
 }
+
+watchedButton.addEventListener('click', () => {
+  displayWatchedMovies(watchedMovies);
+});
+
+// async function fetchMovieInfo(movieId) {
+//   try {
+//     const response = await fetch(`https://api.themoviedb.org/3/genre/movie/list/${movieId}`);
+//     const data = await response.json();
+//     // Обробіть дані та поверніть їх
+//     return data;
+//   } catch (error) {
+//     console.error(error);
+//     return {}; // Поверніть порожній об'єкт у разі помилки
+//   }
+// }
 
 // варіант коли функція створює розмітку html
 // function renderLibrary(storageContent) {
@@ -98,30 +108,30 @@ async function fetchMovieInfo(movieId) {
 //   return movieElement;
 // }
 
-function createMovieElement(movieData) {
-  const movieElement = document.createElement('div');
-  movieElement.classList.add('movie');
-  const movieImage = document.createElement('img');
-  movieImage.src = movieData.poster_path;
-  movieImage.alt = movieData.title;
-  const movieTitle = document.createElement('h2');
-  movieTitle.textContent = movieData.title;
-  const movieRating = document.createElement('p');
-  movieRating.textContent = `Średnia ocena: ${movieData.vote_average}`;
+// function createMovieElement(movieData) {
+//   const movieElement = document.createElement('div');
+//   movieElement.classList.add('movie');
+//   const movieImage = document.createElement('img');
+//   movieImage.src = movieData.poster_path;
+//   movieImage.alt = movieData.title;
+//   const movieTitle = document.createElement('h2');
+//   movieTitle.textContent = movieData.title;
+//   const movieRating = document.createElement('p');
+//   movieRating.textContent = `Średnia ocena: ${movieData.vote_average}`;
 
-  movieElement.appendChild(movieImage);
-  movieElement.appendChild(movieTitle);
-  movieElement.appendChild(movieRating);
+//   movieElement.appendChild(movieImage);
+//   movieElement.appendChild(movieTitle);
+//   movieElement.appendChild(movieRating);
 
-  return movieElement;
-}
+//   return movieElement;
+// }
 
-const watchedButton = document.getElementById('watchedButtonLibrary');
-watchedButton.addEventListener('click', () => {
-  displayWatchedMovies();
-});
+// const watchedButton = document.getElementById('watchedButtonLibrary');
+// watchedButton.addEventListener('click', () => {
+//   displayWatchedMovies();
+// });
 
-// function renderLibrary(storageContent) {
+// // function renderLibrary(storageContent) {
 //   const markup = storageContent
 //     .map(({ id, poster_path, title, genres, release_date }) => {
 //       return `<li class="" data-id="${id}">
