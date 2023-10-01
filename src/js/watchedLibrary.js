@@ -25,13 +25,13 @@ export async function displayWatchedMovies(watchedMovies) {
 
         const voteAverage = vote_average.toFixed(1);
 
-        return `<li class="library-item" data-movieid="${id}">
+        return `<li class="library-item gallery__list-item" data-movieid="${id}">
       <img src="${posterPath}" alt="${title}" movie-id="${id}"/>
       <h3>${title.toUpperCase()}</h3>
       <p>${genreNames} | <span>${release_date.slice(0, 4)}</span></p>
     <div class="vote-average">${voteAverage}</div>
     </li>`;
-      },
+      }
     );
 
     watchedMoviesList.insertAdjacentHTML('beforeend', galleryOfWatchedMovies);
