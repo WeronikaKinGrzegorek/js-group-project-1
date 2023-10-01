@@ -33,7 +33,6 @@ export async function drawMovies(moreMovies, inputValue, page = 1, pageSize = 18
         const posterPath = poster_path
           ? `${BASE_POSTER_PATH}${poster_path}`
           : 'https://moviereelist.com/wp-content/uploads/2019/07/poster-placeholder.jpg';
-
         if (!posterArray.includes(posterPath)) {
           posterArray.push(posterPath);
         }
@@ -43,7 +42,7 @@ export async function drawMovies(moreMovies, inputValue, page = 1, pageSize = 18
             const foundGenre = genres.find(genre => genre.id === genreId);
             return foundGenre ? foundGenre.name : 'Unknown Genre';
           })
-          .join(', ');
+          .join(',');
 
         return `<li class="gallery__list-item" data-movieid="${id}">
           <img src="${posterPath}" alt="${title}" movie-id="${id}"/>
@@ -51,8 +50,13 @@ export async function drawMovies(moreMovies, inputValue, page = 1, pageSize = 18
           <p>${genreNames} | <span>${release_date.slice(0, 4)}</span></p>
                 </li>`;
       });
+    const desktopGallery = [];
+    for (let i = 0; i < galleryOfMovies.length; i += 3) {
+      desktopGallery.push(galleryOfMovies.slice(i, i + 3).join(''));
+    }
 
-    moviesGallery.insertAdjacentHTML('beforeend', galleryOfMovies);
+
+    moviesGallery.insertAdjacentHTML('beforeend', desktopGallery.join(''));
   } catch (error) {
     console.error(error);
   }
