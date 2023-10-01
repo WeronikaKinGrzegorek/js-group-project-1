@@ -3,9 +3,13 @@ import 'notiflix/dist/notiflix-3.2.6.min.css';
 import { displaySavedMovies } from './draw-movie';
 
 const queueButton = document.querySelector('#queueButtonLibrary');
+const savedMovies = JSON.parse(localStorage.getItem('movieQueue')) || [];
+const containerOfSavedMovies = document.querySelector('.library');
+const BASE_POSTER_PATH = 'https://image.tmdb.org/t/p/w500';
+
 export function addToQueue(movieData) {
   const movieId = movieData.id;
-  const isMovieInQueue = queue.some(movieInQueue => {
+  const isMovieInQueue = savedMovies.some(movieInQueue => {
     if (movieInQueue.id === movieId) {
       return true;
     } else {
@@ -14,53 +18,35 @@ export function addToQueue(movieData) {
   });
 
   if (!isMovieInQueue) {
-    queue.push(movieData);
-    localStorage.setItem('movieQueue', JSON.stringify(queue));
+    savedMovies.push(movieData);
+    localStorage.setItem('movieQueue', JSON.stringify(savedMovies));
     Notify.success(`Added movie "${movieData.title}" to queue list.`);
   } else {
     Notify.failure(`Movie "${movieData.title}" is already in queue list.`);
   }
 }
 
-export function displayQueue() {
-  console.log(queue);
-}
-
-queueButton.addEventListener('click', () => {
-  displayQueue(queue);
-});
-
-async function displaySavedMovies() {
+async function displaySavedMovies(savedMovies) {
   try {
-    const genres = await fetchGenres();
-    console.log('Genres:', genres);
-    const savedMovies = JSON.parse(localStorage.getItem('movieQueue')) || [];
-    const containerOfSavedMovies = document.querySelector('.library');
     containerOfSavedMovies.innerHTML = '';
-
     const galleryOfSavedMovies = savedMovies
-      .map(({ poster_path, genre_ids, id, release_date, title }) => {
+      .map(({ poster_path, genres, id, release_date, title, vote_average }) => {
         const posterPath = poster_path
           ? `${BASE_POSTER_PATH}${poster_path}`
           : 'https://moviereelist.com/wp-content/uploads/2019/07/poster-placeholder.jpg';
 
-        if (!posterArray.includes(posterPath)) {
-          posterArray.push(posterPath);
-        }
-        const movieTitle = title ? title.toUpperCase() : 'Unknown Title';
-        const genreNames = genre_ids
-          ? genre_ids
-              .map(genreId => {
-                const foundGenre = genres.find(genre => genre.id === genreId);
-                return foundGenre ? foundGenre.name : 'Unknown Genre';
-              })
-              .join(', ')
-          : 'Unknown Genre';
-        const movieReleaseDate = release_date ? release_date.slice(0, 4) : 'Unknown Release Date';
+        const queueMovieGenres = genres;
+
+        const genreNames = queueMovieGenres
+          .map(genre => {
+            return genre.name ? genre.name : 'Unknown Genre';
+          })
+          .join(', ');
+        const voteAverage = vote_average.toFixed(1);
         return `<li class="library__list-item" data-movie-id="${id}">
-            <img src="${posterPath}" alt="${movieTitle}" movie-id="${id}"/>
-            <h3>${movieTitle}</h3>
-            <p>${genreNames} | <span>${movieReleaseDate}</span></p>
+            <img src="${posterPath}" alt="${title}" movie-id="${id}"/>
+            <h3>${title.toUpperCase()}</h3>
+            <p>${genreNames} | <span>${release_date}</span></p><div class="vote-average">${voteAverage}</div>
           </li>`;
       })
       .join('');
@@ -70,3 +56,7 @@ async function displaySavedMovies() {
     console.error(error);
   }
 }
+
+queueButton.addEventListener('click', () => {
+  displaySavedMovies(savedMovies);
+});
