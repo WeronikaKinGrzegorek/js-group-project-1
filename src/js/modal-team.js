@@ -7,11 +7,11 @@ goitLink.addEventListener('click', function (event) {
   modal.style.display = 'block';
 });
 
-export function closeModal() {
+function closeModal() {
   modal.style.display = 'none';
 }
 
-closeBtn.addEventListener('click', closeModal());
+closeBtn.addEventListener('click', closeModal);
 
 window.addEventListener('click', function (event) {
   if (event.target === modal) {
