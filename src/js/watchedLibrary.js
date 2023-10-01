@@ -9,9 +9,12 @@
 //   });
 // }
 
+import { addToWatchlist } from './add-watchlist.js';
+
 // версія коли беруться дані з API
 export function displayWatchedMovies() {
   const watchedMovies = JSON.parse(localStorage.getItem('movieWatchlist')) || [];
+  console.log(watchedMovies);
   const moviesContainer = document.querySelector('.library-gallery');
   moviesContainer.innerHTML = '';
 
@@ -113,7 +116,6 @@ function createMovieElement(movieData) {
   return movieElement;
 }
 
-
 const watchedButton = document.getElementById('watchedButtonLibrary');
 watchedButton.addEventListener('click', () => {
   displayWatchedMovies();
@@ -145,5 +147,3 @@ watchedButton.addEventListener('click', () => {
 //   // Вставте HTML-розмітку в контейнер
 //   moviesContainer.innerHTML = markup;
 // }
-
-

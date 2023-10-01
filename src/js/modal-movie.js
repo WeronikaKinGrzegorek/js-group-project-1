@@ -20,7 +20,7 @@ const trailerLink = modal.querySelector('#trailerLink');
 const BASE_POSTER_PATH = 'https://image.tmdb.org/t/p/w500';
 
 let movieData;
-let genres = [];
+
 document.addEventListener('DOMContentLoaded', function () {
   let currentPage = 1;
 
@@ -37,16 +37,6 @@ document.addEventListener('DOMContentLoaded', function () {
   loadMoreButton.addEventListener('click', loadMoreMovies);
 });
 
-async function fetchGenreOnce(genreId) {
-  if (genres.length === 0) {
-    genres = await fetchGenres();
-  }
-  const foundGenre = genres.find(genre => genre.id === genreId);
-  return foundGenre ? foundGenre.name : 'Nieznany';
-}
-
-fetchGenreOnce();
-
 async function openModal(movieData) {
   console.log(movieData);
   const posterPath = movieData.poster_path
@@ -61,11 +51,16 @@ async function openModal(movieData) {
   modalPopularity.textContent = movieData.popularity;
   modalOriginalTitle.textContent = movieData.original_title;
 
-  const genreIds = movieData.genres;
-  const genreNames = genreIds.map(async genreId => await fetchGenreOnce(genreId));
-  const resolvedGenreNames = await Promise.all(genreNames);
+  const genres = movieData.genres;
 
-  modalGenres.textContent = resolvedGenreNames;
+  const genreNames = genres
+    .map(genre => {
+      return genre.name ? genre.name : 'Unknown Genre';
+    })
+    .join(', ');
+
+  modalGenres.textContent = genreNames;
+
   modalOverview.textContent = movieData.overview;
 
   watchedButton.addEventListener('click', watched, true);
