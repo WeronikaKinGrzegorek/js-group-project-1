@@ -1,6 +1,15 @@
+import './js/modal-movie.js';
+import './js/add-queue.js';
+import './js/add-watchlist.js';
+import './js/dark-mode.js';
+import './js/draw-movie.js';
+import './js/fetch.js';
+import './js/fetch-genres.js';
+import './js/loader.js';
+import './js/modal-close.js';
+import './js/modal-team.js';
 import { fetchMovies } from './js/fetch';
 import { drawMovies } from './js/draw-movie';
-import './sass/main.scss';
 
 const form = document.querySelector('.search-form');
 const searchField = document.querySelector('[name="searchQuery"]');

@@ -1,28 +1,40 @@
-import { showLoader, hideLoader } from './loader.js';
-import { addToQueue } from './add-queue';
 import { addToWatchlist } from './add-watchlist.js';
-import { fetchGenres } from './fetch-genres.js';
+import { addToQueue } from './add-queue.js';
+import { drawMovies } from './draw-movie.js';
+import { getFilmDetails } from './fetch.js';
 
-const moviesContainer = document.querySelector('.gallery-home');
-const loadMoreButton = document.getElementById('loadMore');
-let currentPage = 1;
-let data;
-let genres = [];
+const modal = document.getElementById('movieModal');
 
-async function fetchGenreOnce(genreId) {
-  if (genres.length === 0) {
-    genres = await fetchGenres();
-  }
-  const foundGenre = genres.find(genre => genre.id === genreId);
-  return foundGenre ? foundGenre.name : 'Nieznany';
-}
+const modalPoster = modal.querySelector('#modalPoster');
+const modalTitle = modal.querySelector('#modalTitle');
+const modalRating = modal.querySelector('#modalRating');
+const modalPopularity = modal.querySelector('#modalPopularity');
+const modalOriginalTitle = modal.querySelector('#modalOriginalTitle');
+const modalGenres = modal.querySelector('#modalGenres');
+const modalOverview = modal.querySelector('#modalOverview');
+const watchedButton = modal.querySelector('#watchedButton'); // dodaj do obejrzanych
+const watchlistButton = modal.querySelector('#watchlistButton'); // dodaj do kolejki
+const trailerLink = modal.querySelector('#trailerLink');
 
-fetchGenreOnce();
+const BASE_POSTER_PATH = 'https://image.tmdb.org/t/p/w500';
 
-function formatDate(dateString) {
-  const date = new Date(dateString);
-  return date.getFullYear();
-}
+let movieData;
+
+document.addEventListener('DOMContentLoaded', function () {
+  let currentPage = 1;
+
+  const loadMoreMovies = async () => {
+    try {
+      await drawMovies('', currentPage, 15);
+      currentPage++;
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const loadMoreButton = document.getElementById('loadMore');
+  loadMoreButton.addEventListener('click', loadMoreMovies);
+});
 
 async function openModal(movieData) {
   const modal = document.getElementById('movieModal');
