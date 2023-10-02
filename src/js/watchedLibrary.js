@@ -10,14 +10,17 @@ export async function displayWatchedMovies(watchedMovies) {
     watchedMoviesList.innerHTML = '';
 
     const galleryOfWatchedMovies = watchedMovies.map(
-      ({ poster_path, genres, id, release_date, title, vote_average }) => {
+
+      ({ poster_path, genres, genre_ids, id, release_date, title, vote_average }) => {
+
         const posterPath = poster_path
           ? `${BASE_POSTER_PATH}${poster_path}`
           : 'https://moviereelist.com/wp-content/uploads/2019/07/poster-placeholder.jpg';
 
-        const watchedMoviesGenres = genres;
 
-        const genreNames = watchedMoviesGenres
+        const watchedMovieGenres = genres ? genres : genre_ids;
+
+        const genreNames = watchedMovieGenres
           .map(genre => {
             return genre.name ? genre.name : 'Unknown Genre';
           })
@@ -31,7 +34,9 @@ export async function displayWatchedMovies(watchedMovies) {
       <p>${genreNames} | <span>${release_date.slice(0, 4)}</span></p>
     <div class="vote-average">${voteAverage}</div>
     </li>`;
-      }
+
+      },
+
     );
 
     watchedMoviesList.insertAdjacentHTML('beforeend', galleryOfWatchedMovies);

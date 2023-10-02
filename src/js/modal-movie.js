@@ -1,6 +1,7 @@
-import { addToQueue } from './add-queue';
+
 import { addToWatchlist } from './add-watchlist.js';
-import { fetchGenres } from './fetch-genres.js';
+import { addToQueue } from './add-queue.js';
+
 import { drawMovies } from './draw-movie.js';
 import { getFilmDetails } from './fetch.js';
 

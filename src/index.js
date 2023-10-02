@@ -1,8 +1,16 @@
+import './js/modal-movie.js';
+import './js/add-queue.js';
+import './js/add-watchlist.js';
+import './js/dark-mode.js';
+import './js/draw-movie.js';
+import './js/fetch.js';
+import './js/fetch-genres.js';
+import './js/loader.js';
+import './js/modal-close.js';
+import './js/modal-team.js';
 import { fetchMovies } from './js/fetch';
 import { drawMovies } from './js/draw-movie';
-import { fetchMovieDetails } from './js/fetch';
-import { showLoader, hideLoader } from './js/loader';
-import './js/dark-mode';
+
 import './sass/main.scss';
 
 import { closeModal } from './js/modal-team';
