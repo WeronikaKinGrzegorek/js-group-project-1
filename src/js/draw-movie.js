@@ -11,21 +11,14 @@ const moviesGallery = document.querySelector('.gallery__list');
 const posterArray = [];
 
 // Funkcja do rysowania filmów
-export async function drawMovies(moreMovies, inputValue, page = 1, pageSize = 18) {
+export async function drawMovies(inputValue, pageSize = 18) {
   try {
     // Pobierz listę gatunków filmowych
     const genres = await fetchGenres();
     console.log(genres);
 
-    let movies;
+    let movies = await fetchMovies(inputValue);
 
-    // Pobierz filmy z API
-    if (moreMovies.length > 0) {
-      movies = moreMovies; //await fetchMovies(inputValue, page);
-    } else {
-      movies = await fetchMovies(inputValue, page);
-    }
-    console.log(movies);
     // Przetwórz filmy i dodaj je do galerii
     const galleryOfMovies = movies
       .slice(0, pageSize)
