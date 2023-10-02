@@ -55,13 +55,8 @@ export async function drawMovies(moreMovies, inputValue, page = 1, pageSize = 18
       desktopGallery.push(galleryOfMovies.slice(i, i + 3).join(''));
     }
 
-
     moviesGallery.insertAdjacentHTML('beforeend', desktopGallery.join(''));
   } catch (error) {
     console.error(error);
   }
 }
-
-
-
-
