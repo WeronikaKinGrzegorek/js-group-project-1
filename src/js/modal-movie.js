@@ -17,7 +17,8 @@ const modalOverview = modal.querySelector('#modalOverview');
 const watchedButton = modal.querySelector('#watchedButton'); // dodaj do obejrzanych
 const watchlistButton = modal.querySelector('#watchlistButton'); // dodaj do kolejki
 const trailerLink = modal.querySelector('#trailerLink');
-
+//const popularity = movieData.popularity.toFixed(0);
+//const averageVote = movieData.vote_average.toFixed(1);
 const BASE_POSTER_PATH = 'https://image.tmdb.org/t/p/w500';
 
 let movieData;
