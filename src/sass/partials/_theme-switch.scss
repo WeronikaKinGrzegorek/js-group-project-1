@@ -91,9 +91,8 @@ body.dark-theme {
       color: getColor('text-1');
     }
   }
-  
+
   .gallery__list {
-   
     background-image: repeating-linear-gradient(
       to left,
       getColor('dark-bg'),
@@ -101,7 +100,16 @@ body.dark-theme {
       getColor('text-3') 140px,
       getColor('text-3') 150px
     );
-    &-item { background-color: #333333;}
+    &-item {
+      background-color: #333333;
+
+      > h3 {
+        background-color: #333333;
+      }
+      > p {
+        background-color: #333333;
+      }
+    }
   }
   .modal-content {
     background-color: #333333;
