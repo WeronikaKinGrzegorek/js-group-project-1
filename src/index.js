@@ -4,8 +4,12 @@ import { fetchMovieDetails } from './js/fetch';
 import { showLoader, hideLoader } from './js/loader';
 import './js/dark-mode';
 import './sass/main.scss';
+
 import { closeModal } from './js/modal-team';
-import { handler, loadMoreMovies} from './js/pagination';
+import { loadMoreMovies} from './js/pagination';
+
+import './js/modal-team';
+
 
 const form = document.querySelector('.search-form');
 const searchField = document.querySelector('[name="searchQuery"]');
@@ -20,9 +24,10 @@ let inputValue = ''
 form.addEventListener('submit', function (event) {
   event.preventDefault();
   currentQuery = searchField.value
-  inputValue = currentQuery
+  inputValue = currentQuery;
   
   moviesGallery.innerHTML = '';
+
   drawMovies(inputValue);
   btnLoadMore.style.display = 'block'
 
@@ -33,5 +38,6 @@ btnLoadMore.addEventListener('click', () => {
  
 loadMoreMovies(drawMovies, searchField.value)
 })
+
 
 drawMovies(searchField.value)

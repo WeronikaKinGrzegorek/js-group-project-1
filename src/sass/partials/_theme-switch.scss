@@ -91,15 +91,25 @@ body.dark-theme {
       color: getColor('text-1');
     }
   }
-  .gallery-home,
+
   .gallery__list {
     background-image: repeating-linear-gradient(
-      to right,
+      to left,
       getColor('dark-bg'),
       getColor('dark-bg') 130px,
-      getColor('text-3') 130px,
+      getColor('text-3') 140px,
       getColor('text-3') 150px
     );
+    &-item {
+      background-color: #333333;
+
+      > h3 {
+        background-color: #333333;
+      }
+      > p {
+        background-color: #333333;
+      }
+    }
   }
   .modal-content {
     background-color: #333333;
