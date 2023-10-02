@@ -1,9 +1,9 @@
 import { Notify } from 'notiflix';
 import 'notiflix/dist/notiflix-3.2.6.min.css';
 
-const watchedButton = document.querySelector('#watchlist');
+// const watchedButton = document.querySelector('#watchedButtonLibrary');
 let watchlist = JSON.parse(localStorage.getItem('movieWatchlist')) || [];
-
+console.log(watchlist);
 export function addToWatchlist(movieData) {
   const movieId = movieData.id;
   const isMovieInWatchlist = watchlist.some(movieInWatchlist => {
@@ -23,6 +23,6 @@ export function addToWatchlist(movieData) {
   }
 }
 
-export function displayWatchlist() {
-  console.log(queue);
+export function displayWatchlist(watchlist) {
+  console.log(watchlist);
 }

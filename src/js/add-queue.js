@@ -1,5 +1,6 @@
 import { Notify } from 'notiflix';
 import 'notiflix/dist/notiflix-3.2.6.min.css';
+
 const savedMovies = JSON.parse(localStorage.getItem('movieQueue')) || [];
 
 export function addToQueue(movieData) {
@@ -20,3 +21,4 @@ export function addToQueue(movieData) {
     Notify.failure(`Movie "${movieData.title}" is already in queue list.`);
   }
 }
+
