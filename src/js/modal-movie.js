@@ -87,6 +87,7 @@ function watched() {
   addToWatchlist(movieData);
 }
 
+
 function closeModal() {
   modal.style.display = 'none';
 
