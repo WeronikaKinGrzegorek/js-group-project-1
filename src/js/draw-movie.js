@@ -61,3 +61,7 @@ export async function drawMovies(moreMovies, inputValue, page = 1, pageSize = 18
     console.error(error);
   }
 }
+
+
+
+
