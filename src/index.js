@@ -5,34 +5,33 @@ import { showLoader, hideLoader } from './js/loader';
 import './js/dark-mode';
 import './sass/main.scss';
 import { closeModal } from './js/modal-team';
+import { handler, loadMoreMovies} from './js/pagination';
 
 const form = document.querySelector('.search-form');
 const searchField = document.querySelector('[name="searchQuery"]');
 const moviesGallery = document.querySelector('.gallery__list');
 
 const btnLoadMore = document.getElementById('loadMore');
+btnLoadMore.style.display = 'none'
 
-let inputValue = '';
+let currentQuery = ''
+let inputValue = ''
 
 form.addEventListener('submit', function (event) {
   event.preventDefault();
-  const inputValue = searchField.value;
-
+  currentQuery = searchField.value
+  inputValue = currentQuery
+  
   moviesGallery.innerHTML = '';
   drawMovies(inputValue);
+  btnLoadMore.style.display = 'block'
 
   hideLoader(); // Ukryj loader po zakończeniu wyszukiwania filmów
 });
 
-btnLoadMore.addEventListener('click', async () => {
-  page += 1;
-  const moreMovies = await fetchMovies(inputValue, page);
-  if (moreMovies && moreMovies.length > 0) {
-    drawMovies(inputValue, true);
-  } else {
-    btnLoadMore.disabled = true;
-    btnLoadMore.textContent = 'No More Movies';
-  }
-});
+btnLoadMore.addEventListener('click', () => {
+ 
+loadMoreMovies(drawMovies, searchField.value)
+})
 
-drawMovies(inputValue);
+drawMovies(searchField.value)
