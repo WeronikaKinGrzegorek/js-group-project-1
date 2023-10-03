@@ -1,28 +1,45 @@
-
-  <div class="container">
-    <div class="movies"></div>
-
-  </div>
-
-
 <div id="movieModal" class="modal">
   <div class="modal-content">
     <span id="modalCloseButton" class="close-button">&times;</span>
-    <div class="modal-left">
-      <img alt="Miniatura filmu" id="modalPoster" />
+     <div class="left">
+       <img class="left__img" alt="Miniatura filmu" id="modalPoster" />
     </div>
-    <div class="modal-right">
-      <h2 id="modalTitle"></h2>
-      <p>Vote / Votes: <span id="modalRating"></span></p>
-      <p>Popularity: <span id="modalPopularity"></span></p>
-      <p>Griginal title: <span id="modalOriginalTitle"></span></p>
-      <p>Genre: <span id="modalGenres"></span></p>
-      <p>About: <span id="modalOverview"></span></p>
-      <div class="modal-buttons">
-        <button id="watchlistButton">Dodaj do obejrzenia</button>
-        <button id="watchedButton" data-action="watch">Dodaj do obejrzanych</button>
+  <div class="right">
+       <h2 class="right__title" id="modalTitle"></h2>
+       <div class="right__description">
+         <p class="right__descriptiontitle">
+         Vote / Votes<span class="right__summary" id="modalRating"></span>
+         </p>
+         <p class="right__descriptiontitle">
+           Popularity: <span class="right__summary" id="modalPopularity"></span>
+         </p>
+         <p class="right__descriptiontitle">
+           Griginal title: <span class="right__summary" id="modalOriginalTitle"></span>
+         </p>
+         <p class="right__descriptiontitle">
+           Genre: <span class="right__summary" id="modalGenres"></span>
+         </p>
+       </div>
+       <div>
+         <p class="right__about">ABOUT</p>
+         <span class="right__about-description" id="modalOverview"></span>
+       </div>
+       <div class="right__button-div">
+         <button class="right__button" id="watchlistButton">ADD TO QUEUE</button>
+         <button class="right__button" id="watchedButton" data-action="watch">ADD TO WATCHED</button>
+         <button class="right__button" id="trailerLink" target="_blank" href="#">
+           Obejrzyj trailer
+         </button>
+        <div id="trailerContainer"></div>
+         
+       </div>
+       
+       <div>
+         <!-- <button class="right__button" id="trailerLink" target="_blank" href="#">
+           Obejrzyj trailer
+         </button> -->
+         <!-- <a id="trailerLink" target="_blank" href="#">Obejrzyj trailer</a> -->
       </div>
-      <p><a id="trailerLink" target="_blank" href="#">Obejrzyj trailer</a></p>
     </div>
   </div>
 </div>

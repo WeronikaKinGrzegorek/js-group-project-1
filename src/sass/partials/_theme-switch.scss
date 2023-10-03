@@ -123,6 +123,7 @@ body.dark-theme {
       transform: scale(1.1);
     }
   }
+  .right__summary{color:getColor('text-1');}
 }
 .switcher {
   display: flex;
