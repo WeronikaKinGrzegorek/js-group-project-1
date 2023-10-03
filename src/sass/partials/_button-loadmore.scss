@@ -1,0 +1,18 @@
+button#loadMore {
+    display: block;
+    margin: 0 auto;
+    transition: all 0.3s ease;
+    background-color: #FF4500;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-transform: uppercase;
+  
+    &:hover {
+    transform: scale(1.1) translateZ(5px);
+    box-shadow: 0 0 20px rgba(255, 69, 0, 0.5);
+    background-color: #FF6347;
+    }
+  }
