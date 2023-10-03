@@ -8,6 +8,7 @@ import './js/fetch-genres.js';
 import './js/loader.js';
 import './js/modal-close.js';
 import './js/modal-team.js';
+import './js/clear-search-input.js';
 import { drawMovies } from './js/draw-movie';
 import './sass/main.scss';
 import { hideLoader } from './js/loader.js';
