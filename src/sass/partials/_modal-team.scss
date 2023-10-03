@@ -2,7 +2,8 @@ body {
   font-family: Arial, sans-serif;
 }
 .modal-team-content {
-  background-image: url(../images/flame2.jpg);
+  background-image: radial-gradient(circle, rgba(21, 20, 20, 0.7) 45%, rgba(143, 106, 77, 0.6) 100%),
+    url(../images/flame2.jpg);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -45,4 +46,16 @@ h2 {
 
 p {
   font-size: 18px;
+}
+.modal-wrapper:hover,
+.developers:hover {
+  text-decoration: underline;
+  text-transform: uppercase;
+}
+.close-modal-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 30px;
+  cursor: pointer;
 }
