@@ -1,3 +1,8 @@
+import {
+  showLoader,
+  hideLoader
+} from './loader';
+
 const watchedMovies = JSON.parse(localStorage.getItem('movieWatchlist')) || [];
 console.log(watchedMovies);
 const watchedMoviesList = document.querySelector('.library');
@@ -10,10 +15,18 @@ export async function displayWatchedMovies(watchedMovies) {
     watchedMoviesList.innerHTML = '';
 
     const galleryOfWatchedMovies = watchedMovies.map(
-      ({ poster_path, genres, genre_ids, id, release_date, title, vote_average }) => {
-        const posterPath = poster_path
-          ? `${BASE_POSTER_PATH}${poster_path}`
-          : 'https://moviereelist.com/wp-content/uploads/2019/07/poster-placeholder.jpg';
+      ({
+        poster_path,
+        genres,
+        genre_ids,
+        id,
+        release_date,
+        title,
+        vote_average
+      }) => {
+        const posterPath = poster_path ?
+          `${BASE_POSTER_PATH}${poster_path}` :
+          'https://moviereelist.com/wp-content/uploads/2019/07/poster-placeholder.jpg';
 
         const watchedMovieGenres = genres ? genres : genre_ids;
 
@@ -41,5 +54,7 @@ export async function displayWatchedMovies(watchedMovies) {
 }
 
 watchedButton.addEventListener('click', () => {
+  showLoader();
   displayWatchedMovies(watchedMovies);
+  hideLoader();
 });

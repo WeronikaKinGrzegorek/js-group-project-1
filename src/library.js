@@ -1,3 +1,4 @@
+import './js/loader.js';
 import './js/dark-mode';
 import './sass/main.scss';
 import './js/modal-team';

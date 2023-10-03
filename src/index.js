@@ -8,11 +8,14 @@ import './js/fetch-genres.js';
 import './js/loader.js';
 import './js/modal-close.js';
 import './js/modal-team.js';
+
 import './js/clear-search-input.js';
 import { drawMovies } from './js/draw-movie';
+
 import './sass/main.scss';
-import { hideLoader } from './js/loader.js';
-import { loadMoreMovies } from './js/pagination';
+import {
+  loadMoreMovies
+} from './js/pagination';
 
 const form = document.querySelector('.search-form');
 const searchField = document.querySelector('[name="searchQuery"]');
@@ -33,8 +36,6 @@ form.addEventListener('submit', function (event) {
 
   drawMovies(inputValue);
   btnLoadMore.style.display = 'block';
-
-  hideLoader(); // Ukryj loader po zakończeniu wyszukiwania filmów
 });
 
 btnLoadMore.addEventListener('click', () => {
