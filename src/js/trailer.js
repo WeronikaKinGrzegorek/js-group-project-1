@@ -12,7 +12,7 @@ export async function openYoutubeTrailer(movieData) {
       const youtubeURL = `https://www.youtube.com/watch?v=${videoId}`;
       window.open(youtubeURL, '_blank');
     } else {
-      console.error('Nie znaleziono trailera dla tego filmu.');
+      console.error('Niestety nie znaleziono trailera dla tego filmu.');
     }
   } catch (error) {
     console.error('Wystąpił błąd podczas pobierania trailera z YouTube:', error);
