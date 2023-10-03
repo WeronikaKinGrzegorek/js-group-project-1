@@ -4,7 +4,13 @@ import { addToQueue } from './add-queue.js';
 
 import { drawMovies } from './draw-movie.js';
 import { getFilmDetails } from './fetch.js';
+import { openYoutubeTrailer } from './trailer.js'; 
 
+const trailerLinkButton = document.getElementById('trailerLink');
+
+trailerLinkButton.addEventListener('click', () => {
+  openYoutubeTrailer(movieData);
+});
 const modal = document.getElementById('movieModal');
 
 const modalPoster = modal.querySelector('#modalPoster');
