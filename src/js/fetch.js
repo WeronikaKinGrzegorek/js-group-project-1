@@ -43,3 +43,29 @@ export async function getFilmDetails(movieId) {
   };
   return axios.request(options).then(response => response.data);
 }
+
+export async function fetchSearchMovies (query = '', page = 1) {
+  const searchQuery = query.trim();
+
+  const params = new URLSearchParams({
+    api_key: apiKey,
+    query: searchQuery,
+    page: page,
+  });
+
+  const urlSearch = `${BASE_API_URL}search/movie?${params}`;
+
+  try {
+    const response = await axios.get(urlSearch);
+    hideLoader();
+
+    return response.data.results;
+  } catch (error) {
+    console.error('Błąd podczas pobierania fimów:', error);
+    Notiflix.Notify.failure(
+      'Sorry, there are no images matching your search query. Please try again.',
+    );
+
+    return null;
+  }
+}

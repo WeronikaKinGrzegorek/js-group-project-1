@@ -26,21 +26,21 @@ const BASE_POSTER_PATH = 'https://image.tmdb.org/t/p/w500';
 // let data;
 let movieData;
 let genres = [];
-document.addEventListener('DOMContentLoaded', function () {
-  let currentPage = 1;
+//document.addEventListener('DOMContentLoaded', function () {
+  //let currentPage = 1;
 
-  const loadMoreMovies = async () => {
-    try {
-      await drawMovies('', currentPage, 15);
-      currentPage++;
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  //const loadMoreMovies = async () => {
+  //  try {
+   //   await drawMovies('', currentPage, 15);
+   //   currentPage++;
+   // } catch (error) {
+   //   console.error(error);
+  //  }
+ // };
 
-  const loadMoreButton = document.getElementById('loadMore');
-  loadMoreButton.addEventListener('click', loadMoreMovies);
-});
+ // const loadMoreButton = document.getElementById('loadMore');
+ // loadMoreButton.addEventListener('click', loadMoreMovies);
+//});
 
 async function fetchGenreOnce(genreId) {
   if (genres.length === 0) {
@@ -131,80 +131,80 @@ function handleAnyOutsideClick(event) {
   }
 }
 
-export async function handleMovieClick(event) {
-  try {
-    const movieElement = event.target.closest('.gallery__list-item');
-    console.log(movieElement);
+//export async function handleMovieClick(event) {
+  //try {
+    //const movieElement = event.target.closest('.gallery__list-item');
+    //console.log(movieElement);
     // const libraryMovieElement = event.target.closest('.librarylist-item');
 
-    if (movieElement) {
-      const movieId = movieElement.dataset.movieid;
-      console.log(movieId);
-      movieData = await getFilmDetails(movieId);
+    //if (movieElement) {
+      //const movieId = movieElement.dataset.movieid;
+      //console.log(movieId);
+      //movieData = await getFilmDetails(movieId);
 
-      await openModal(movieData);
-    }
-  } catch (error) {
-    console.error(error);
-  }
-}
+      //await openModal(movieData);
+    //}
+  //} catch (error) {
+   // console.error(error);
+ // }
+//}
 
-document.addEventListener('click', handleMovieClick);
+//document.addEventListener('click', handleMovieClick);
 
 const modalCloseButton = document.getElementById('modalCloseButton');
 modalCloseButton.addEventListener('click', closeModal);
 
-// try {
+ try {
 
-// const detailsOfClickedMovie = movieData.map(
-//   ({
-//     poster_path,
-//     genre_ids,
-//     id,
-//     title,
-//     vote_average,
-//     popularity,
-//     original_title,
-//     overview,
-//   }) => {
-//     if (!detailsOfClickedMovie || detailsOfClickedMovie.length === 0) {
-//       return;
-//     }
-//     console.log(detailsOfClickedMovie);
-//     const posterPath = poster_path
-//       ? `${BASE_POSTER_PATH}${poster_path}`
-//       : 'https://moviereelist.com/wp-content/uploads/2019/07/poster-placeholder.jpg';
+ const detailsOfClickedMovie = movieData.map(
+   ({
+     poster_path,
+    genre_ids,
+    id,
+    title,
+    vote_average,
+    popularity,
+    original_title,
+     overview,
+  }) => {
+     if (!detailsOfClickedMovie || detailsOfClickedMovie.length === 0) {
+      return;
+     }
+     console.log(detailsOfClickedMovie);
+     const posterPath = poster_path
+       ? `${BASE_POSTER_PATH}${poster_path}`
+      : 'https://moviereelist.com/wp-content/uploads/2019/07/poster-placeholder.jpg';
 
-//     const genreNames = genre_ids
-//       .map(genreId => {
-//         fetchGenreOnce(genreId);
-//       })
-//       .join(', ');
+     const genreNames = genre_ids
+       .map(genreId => {
+        fetchGenreOnce(genreId);
+      })
+       .join(', ');
 
-//     const trailerLinkUrl = `https://www.youtube.com/results?search_query=${title}+trailer`;
+     const trailerLinkUrl = `https://www.youtube.com/results?search_query=${title}+trailer`;
 
-//     return ` <div class="modal-content">
-//     <span id="modalCloseButton" class="close-button">&times;</span>
-//     <div class="modal-left">
-//           <img src="${posterPath}" alt="${title}" id="modalPoster"/>
-//         </div>
-//     <div class="modal-right">
-//       <h3 id="modalTitle">${title.toUpperCase()}</h3>
-//       <p>Średnia ocena: <span id="modalRating">${vote_average}</span></p>
-//       <p>Popularność: <span id="modalPopularity">${popularity}</span></p>
-//       <p>Oryginalny tytuł: <span id="modalOriginalTitle">${original_title}</span></p>
-//       <p>Gatunek: <span id="modalGenres">${genreNames}</span></p>
-//       <p>Opis: <span id="modalOverview">${overview}</span></p>
-//       <div class="modal-buttons">
-//         <button id="watchlistButton">Dodaj do obejrzenia</button>
-//         <button id="watchedButton" data-action="watch">Dodaj do obejrzanych</button>
-//       </div>
-//       <p><a id="trailerLink" target="_blank" href="${trailerLinkUrl}">Obejrzyj trailer</a></p>
-//     </div>
-//   </div>`;
-//   },
-// );
+     return ` <div class="modal-content">
+     <span id="modalCloseButton" class="close-button">&times;</span>
+     <div class="modal-left">
+          <img src="${posterPath}" alt="${title}" id="modalPoster"/>
+         </div>
+    <div class="modal-right">
+      <h3 id="modalTitle">${title.toUpperCase()}</h3>
+       <p>Średnia ocena: <span id="modalRating">${vote_average}</span></p>
+      <p>Popularność: <span id="modalPopularity">${popularity}</span></p>
+      <p>Oryginalny tytuł: <span id="modalOriginalTitle">${original_title}</span></p>
+      <p>Gatunek: <span id="modalGenres">${genreNames}</span></p>
+      <p>Opis: <span id="modalOverview">${overview}</span></p>
+       <div class="modal-buttons">
+        <button id="watchlistButton">Dodaj do obejrzenia</button>
+        <button id="watchedButton" data-action="watch">Dodaj do obejrzanych</button>
+       </div>
+       <p><a id="trailerLink" target="_blank" href="${trailerLinkUrl}">Obejrzyj trailer</a></p>
+     </div>
+   </div>`;
+   },
+ );
 
-// modal.insertAdjacentHTML('beforeend', detailsOfClickedMovie);
-// } catch (error) {
-//   console.error(error);
+ modal.insertAdjacentHTML('beforeend', detailsOfClickedMovie);
+ } catch (error) {
+   console.error(error); }

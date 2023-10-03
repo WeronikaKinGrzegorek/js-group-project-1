@@ -1,5 +1,5 @@
 import { fetchMovies } from './js/fetch';
-import { drawMovies } from './js/draw-movie';
+import { drawMovies, drawSearchMovies } from './js/draw-movie';
 import { fetchMovieDetails } from './js/fetch';
 import { showLoader, hideLoader } from './js/loader';
 import './js/dark-mode';
@@ -31,7 +31,7 @@ form.addEventListener('submit', function (event) {
 
 btnLoadMore.addEventListener('click', () => {
  
-loadMoreMovies(drawMovies, searchField.value)
+loadMoreMovies(drawSearchMovies, searchField.value)
 })
 
 drawMovies(searchField.value)
