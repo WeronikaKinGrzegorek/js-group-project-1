@@ -1,10 +1,9 @@
-
 import { addToWatchlist } from './add-watchlist.js';
 import { addToQueue } from './add-queue.js';
 
 import { drawMovies } from './draw-movie.js';
 import { getFilmDetails } from './fetch.js';
-import { openYoutubeTrailer } from './trailer.js'; 
+import { openYoutubeTrailer } from './trailer.js';
 
 const trailerLinkButton = document.getElementById('trailerLink');
 
@@ -29,21 +28,21 @@ const BASE_POSTER_PATH = 'https://image.tmdb.org/t/p/w500';
 
 let movieData;
 
-document.addEventListener('DOMContentLoaded', function () {
-  let currentPage = 1;
+// document.addEventListener('DOMContentLoaded', function () {
+//   let currentPage = 1;
 
-  const loadMoreMovies = async () => {
-    try {
-      await drawMovies('', currentPage, 15);
-      currentPage++;
-    } catch (error) {
-      console.error(error);
-    }
-  };
+//   const loadMoreMovies = async () => {
+//     try {
+//       await drawMovies('', currentPage, 15);
+//       currentPage++;
+//     } catch (error) {
+//       console.error(error);
+//     }
+//   };
 
-  const loadMoreButton = document.getElementById('loadMore');
-  loadMoreButton.addEventListener('click', loadMoreMovies);
-});
+//   const loadMoreButton = document.getElementById('loadMore');
+//   loadMoreButton.addEventListener('click', loadMoreMovies);
+// });
 
 async function openModal(movieData) {
   console.log(movieData);
@@ -92,7 +91,6 @@ function que() {
 function watched() {
   addToWatchlist(movieData);
 }
-
 
 function closeModal() {
   modal.style.display = 'none';

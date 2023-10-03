@@ -1,9 +1,6 @@
 import axios from 'axios';
 import Notiflix from 'notiflix';
-import {
-  showLoader,
-  hideLoader
-} from './loader';
+import { showLoader, hideLoader } from './loader';
 
 const apiKey = '55e390226d2f3f6feba5afe684a5a044';
 const BASE_API_URL = 'https://api.themoviedb.org/3/';
@@ -25,9 +22,10 @@ export async function fetchMovies(query = '', page = 1) {
   try {
     showLoader();
     const response = await axios.get(url);
-
-
-    return response.data.results;
+    console.log(response);
+    console.log(response.data);
+    console.log(response.data.results);
+    return response.data;
   } catch (error) {
     hideLoader();
     console.error('Błąd podczas pobierania fimów:', error);
@@ -44,10 +42,10 @@ export async function getFilmDetails(movieId) {
     method: 'GET',
     url: `${BASE_API_URL}movie/${movieId}?api_key=${apiKey}`,
     params: {
-      language: 'en-US'
+      language: 'en-US',
     },
     headers: {
-      accept: 'application/json'
+      accept: 'application/json',
     },
   };
   return axios.request(options).then(response => response.data);

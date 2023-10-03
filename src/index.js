@@ -13,16 +13,14 @@ import './js/clear-search-input.js';
 import { drawMovies } from './js/draw-movie';
 
 import './sass/main.scss';
-import {
-  loadMoreMovies
-} from './js/pagination';
+import { loadMoreMovies } from './js/pagination';
 
 const form = document.querySelector('.search-form');
 const searchField = document.querySelector('[name="searchQuery"]');
 const moviesGallery = document.querySelector('.gallery__list');
 
 const btnLoadMore = document.getElementById('loadMore');
-btnLoadMore.style.display = 'none';
+// btnLoadMore.style.display = 'none';
 
 let currentQuery = '';
 let inputValue = '';
