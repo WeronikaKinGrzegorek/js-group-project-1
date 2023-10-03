@@ -6,4 +6,12 @@ import './js/add-queue';
 import './js/add-watchlist';
 import './js/watchedLibrary';
 import './js/queueLibrary';
+
 import './js/modal-movie';
+
+import { drawMovies } from './js/draw-movie.js';
+import { displayWatchedMovies } from './js/queueLibrary';
+
+drawMovies(displayWatchedMovies);
+
+
