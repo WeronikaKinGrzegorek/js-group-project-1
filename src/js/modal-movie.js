@@ -1,7 +1,5 @@
-import { addToWatchlist } from './add-watchlist.js';
+import { addToWatchlist, removeFromWatched, isMovieInWatched } from './add-watchlist.js';
 import { addToQueue, removeFromQueue, isMovieInQueue } from './add-queue.js';
-import { isMovieInQueue } from './add-queue.js';
-import { drawMovies } from './draw-movie.js';
 import { getFilmDetails } from './fetch.js';
 import { openYoutubeTrailer } from './trailer.js';
 
@@ -19,14 +17,13 @@ const modalPopularity = modal.querySelector('#modalPopularity');
 const modalOriginalTitle = modal.querySelector('#modalOriginalTitle');
 const modalGenres = modal.querySelector('#modalGenres');
 const modalOverview = modal.querySelector('#modalOverview');
-const watchedButton = modal.querySelector('#watchedButton'); // dodaj do obejrzanych
+export const watchedButton = modal.querySelector('#watchedButton'); // dodaj do obejrzanych
 export const watchlistButton = modal.querySelector('#watchlistButton'); // add to queue button
 const trailerLink = modal.querySelector('#trailerLink');
 
 const BASE_POSTER_PATH = 'https://image.tmdb.org/t/p/w500';
 
 let movieData;
-
 
 async function openModal(movieData) {
   console.log(movieData);
@@ -54,8 +51,14 @@ async function openModal(movieData) {
 
   modalOverview.textContent = movieData.overview;
 
-  watchedButton.addEventListener('click', watched, true);
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  watchedButton.addEventListener('click', () => {
+    if (isMovieInWatched(movieData)) {
+      removeFromWatched(movieData);
+    } else {
+      watched();
+    }
+  });
+  //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   // watchlistButton.addEventListener('click', que, true); // dodaj do kolejki
   watchlistButton.addEventListener('click', () => {
     if (isMovieInQueue(movieData)) {
@@ -64,7 +67,7 @@ async function openModal(movieData) {
       que();
     }
   });
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   trailerLink.href = `https://www.youtube.com/results?search_query=${movieData.title}+trailer`;
   modal.style.display = 'block';
 
@@ -72,6 +75,9 @@ async function openModal(movieData) {
   modal.addEventListener('click', handleAnyOutsideClick);
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~
   watchlistButton.textContent = isMovieInQueue(movieData) ? 'Remove from Queue' : 'Add to Queue';
+  watchedButton.textContent = isMovieInWatched(movieData)
+    ? 'Remove form Watched'
+    : 'Add to Watched';
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 }
 
