@@ -19,7 +19,7 @@ const modalPopularity = modal.querySelector('#modalPopularity');
 const modalOriginalTitle = modal.querySelector('#modalOriginalTitle');
 const modalGenres = modal.querySelector('#modalGenres');
 const modalOverview = modal.querySelector('#modalOverview');
-const watchedButton = modal.querySelector('#watchedButton'); // dodaj do obejrzanych
+export const watchedButton = modal.querySelector('#watchedButton'); // dodaj do obejrzanych
 export const watchlistButton = modal.querySelector('#watchlistButton'); // add to queue button
 const trailerLink = modal.querySelector('#trailerLink');
 
@@ -54,7 +54,18 @@ async function openModal(movieData) {
 
   modalOverview.textContent = movieData.overview;
 
-  watchedButton.addEventListener('click', watched, true);
+  watchedButton.addEventListener('click', () => {
+    if (isMovieWatched(movieData)) {
+      removeFromWatched(movieData);
+    } else {
+      watched();
+    }
+  });
+  trailerLink.href = `https://www.youtube.com/results?search_query=${movieData.title}+trailer`;
+  modal.style.display = 'block';
+
+  document.addEventListener('keydown', handleEscKey);
+  modal.addEventListener('click', handleAnyOutsideClick);
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   // watchlistButton.addEventListener('click', que, true); // dodaj do kolejki
   watchlistButton.addEventListener('click', () => {
@@ -72,6 +83,7 @@ async function openModal(movieData) {
   modal.addEventListener('click', handleAnyOutsideClick);
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~
   watchlistButton.textContent = isMovieInQueue(movieData) ? 'Remove from Queue' : 'Add to Queue';
+  watchedButton.textContent = isMovieWatched(movieData) ? 'Remove form Watched' : 'Add to Watched';
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 }
 
@@ -80,7 +92,7 @@ function que() {
 }
 
 function watched() {
-  addToWatchlist(movieData);
+  addToWatched(movieData); // dodaj do obejrzenia
 }
 
 function closeModal() {
