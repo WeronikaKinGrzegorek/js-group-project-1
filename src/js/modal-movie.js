@@ -35,8 +35,8 @@ async function openModal(movieData) {
   modalPoster.alt = movieData.title;
 
   modalTitle.textContent = movieData.title.toUpperCase();
-  modalRating.textContent = `${movieData.vote_average} / ${movieData.vote_count}`;
-  modalPopularity.textContent = movieData.popularity;
+  modalRating.textContent = `${movieData.vote_average.toFixed(1)} / ${movieData.vote_count}`;
+  modalPopularity.textContent = movieData.popularity.toFixed(0);
   modalOriginalTitle.textContent = movieData.original_title;
 
   const genres = movieData.genres;
