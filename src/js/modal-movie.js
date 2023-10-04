@@ -1,17 +1,16 @@
-
 import { addToWatchlist } from './add-watchlist.js';
-import { addToQueue } from './add-queue.js';
-
+import { addToQueue, removeFromQueue, isMovieInQueue } from './add-queue.js';
+import { isMovieInQueue } from './add-queue.js';
 import { drawMovies } from './draw-movie.js';
 import { getFilmDetails } from './fetch.js';
-import { openYoutubeTrailer } from './trailer.js'; 
+import { openYoutubeTrailer } from './trailer.js';
 
 const trailerLinkButton = document.getElementById('trailerLink');
 
 trailerLinkButton.addEventListener('click', () => {
   openYoutubeTrailer(movieData);
 });
-const modal = document.getElementById('movieModal');
+export const modal = document.getElementById('movieModal');
 
 const modalPoster = modal.querySelector('#modalPoster');
 const modalTitle = modal.querySelector('#modalTitle');
@@ -21,29 +20,13 @@ const modalOriginalTitle = modal.querySelector('#modalOriginalTitle');
 const modalGenres = modal.querySelector('#modalGenres');
 const modalOverview = modal.querySelector('#modalOverview');
 const watchedButton = modal.querySelector('#watchedButton'); // dodaj do obejrzanych
-const watchlistButton = modal.querySelector('#watchlistButton'); // dodaj do kolejki
+export const watchlistButton = modal.querySelector('#watchlistButton'); // add to queue button
 const trailerLink = modal.querySelector('#trailerLink');
-//const popularity = movieData.popularity.toFixed(0);
-//const averageVote = movieData.vote_average.toFixed(1);
+
 const BASE_POSTER_PATH = 'https://image.tmdb.org/t/p/w500';
 
 let movieData;
 
-document.addEventListener('DOMContentLoaded', function () {
-  let currentPage = 1;
-
-  const loadMoreMovies = async () => {
-    try {
-      await drawMovies('', currentPage, 15);
-      currentPage++;
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const loadMoreButton = document.getElementById('loadMore');
-  loadMoreButton.addEventListener('click', loadMoreMovies);
-});
 
 async function openModal(movieData) {
   console.log(movieData);
@@ -72,17 +55,24 @@ async function openModal(movieData) {
   modalOverview.textContent = movieData.overview;
 
   watchedButton.addEventListener('click', watched, true);
-
-  watchlistButton.addEventListener('click', que, true); // dodaj do kolejki
-
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  // watchlistButton.addEventListener('click', que, true); // dodaj do kolejki
+  watchlistButton.addEventListener('click', () => {
+    if (isMovieInQueue(movieData)) {
+      removeFromQueue(movieData);
+    } else {
+      que();
+    }
+  });
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   trailerLink.href = `https://www.youtube.com/results?search_query=${movieData.title}+trailer`;
   modal.style.display = 'block';
 
-  // Dodaj obsługę zdarzenia klawisza "Esc" po otwarciu modala.
   document.addEventListener('keydown', handleEscKey);
-
-  // Dodaj obsługę zamykania modala po kliknięciu w obszar poza nim.
   modal.addEventListener('click', handleAnyOutsideClick);
+  //~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  watchlistButton.textContent = isMovieInQueue(movieData) ? 'Remove from Queue' : 'Add to Queue';
+  //~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 }
 
 function que() {
@@ -92,7 +82,6 @@ function que() {
 function watched() {
   addToWatchlist(movieData);
 }
-
 
 function closeModal() {
   modal.style.display = 'none';

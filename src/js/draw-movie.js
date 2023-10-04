@@ -1,14 +1,6 @@
-import {
-  fetchMovies
-} from './fetch.js';
-import {
-  fetchGenres
-} from './fetch-genres.js';
-import {
-  showLoader,
-  hideLoader
-} from './loader';
-
+import { fetchMovies } from './fetch.js';
+import { fetchGenres } from './fetch-genres.js';
+import { showLoader, hideLoader } from './loader';
 
 // Stała z bazowym adresem plakatów filmowych
 const BASE_POSTER_PATH = 'https://image.tmdb.org/t/p/w500';
@@ -30,19 +22,12 @@ export async function drawMovies(inputValue, currentPage, pageSize = 18) {
     let movies = await fetchMovies(inputValue, currentPage);
 
     // Przetwórz filmy i dodaj je do galerii
-    const galleryOfMovies = movies
+    const galleryOfMovies = movies.results
       .slice(0, pageSize)
-      .map(({
-        poster_path,
-        genre_ids,
-        id,
-        release_date,
-        title,
-        vote_average
-      }) => {
-        const posterPath = poster_path ?
-          `${BASE_POSTER_PATH}${poster_path}` :
-          'https://moviereelist.com/wp-content/uploads/2019/07/poster-placeholder.jpg';
+      .map(({ poster_path, genre_ids, id, release_date, title, vote_average }) => {
+        const posterPath = poster_path
+          ? `${BASE_POSTER_PATH}${poster_path}`
+          : 'https://moviereelist.com/wp-content/uploads/2019/07/poster-placeholder.jpg';
         if (!posterArray.includes(posterPath)) {
           posterArray.push(posterPath);
         }
