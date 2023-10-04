@@ -24,6 +24,8 @@ const btnLoadMore = document.getElementById('loadMore');
 
 let currentQuery = '';
 let inputValue = '';
+let currentPage = 1;
+const pageSize = 18;
 
 form.addEventListener('submit', function (event) {
   event.preventDefault();
@@ -37,7 +39,7 @@ form.addEventListener('submit', function (event) {
 });
 
 btnLoadMore.addEventListener('click', () => {
-  loadMoreMovies(drawMovies, searchField.value);
+  loadMoreMovies(drawMovies, searchField.value, currentPage, pageSize);
 });
 
 drawMovies(searchField.value);

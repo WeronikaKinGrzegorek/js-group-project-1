@@ -1,14 +1,14 @@
-let currentPage = 1;
-const pageSize = 18;
-let inputValue = '';
 
-export async function loadMoreMovies(drawMoviesFunction, inputValue) {
-  try {
-    currentPage++;
-    await drawMoviesFunction(inputValue, currentPage, pageSize);
-  } catch (error) {
-    console.log(error);
-  }
+
+
+export async function loadMoreMovies(drawMoviesFunction, inputValue, currentPage, pageSize) {
+    try {
+        await drawMoviesFunction(inputValue, currentPage, pageSize)
+        currentPage++
+    } catch (error) {
+        console.log(error)
+    }
+
 }
 
 // document.addEventListener('DOMContentLoaded', function () {
