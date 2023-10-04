@@ -8,6 +8,7 @@ import './js/watchedLibrary';
 import './js/queueLibrary';
 import { showLoader, hideLoader } from './js/loader.js';
 
+
 import './js/modal-movie';
 
 import { displayWatchedMovies } from './js/watchedLibrary.js';
