@@ -1,20 +1,24 @@
 import { fetchMovies } from './fetch.js';
 import { fetchGenres } from './fetch-genres.js';
 import { showLoader, hideLoader } from './loader';
+import Notiflix from 'notiflix';
+import 'notiflix/dist/notiflix-3.2.6.min.css';
 
 // Stała z bazowym adresem plakatów filmowych
 const BASE_POSTER_PATH = 'https://image.tmdb.org/t/p/w500';
 
 // Elementy DOM
 const moviesGallery = document.querySelector('.gallery__list');
-
+const btnLoadMore = document.getElementById('loadMore');
 // Tablica do przechowywania adresów plakatów filmowych
 const posterArray = [];
 
+// let currentPage = 0;
 // Funkcja do rysowania filmów
 export async function drawMovies(inputValue, currentPage, pageSize = 18) {
   showLoader();
   try {
+    currentPage += 1;
     // Pobierz listę gatunków filmowych
     const genres = await fetchGenres();
     console.log(genres);
@@ -52,6 +56,17 @@ export async function drawMovies(inputValue, currentPage, pageSize = 18) {
     }
 
     moviesGallery.insertAdjacentHTML('beforeend', desktopGallery.join(''));
+    const lastPage = movies.total_pages;
+    console.log(movies.total_pages);
+    if (currentPage === lastPage) {
+      btnLoadMore.style.display = 'none';
+      Notiflix.Notify.failure("We're sorry, but you've reached the end of search results.", {
+        timeout: 3000,
+        fontSize: '15px',
+      });
+      hideLoader();
+      return;
+    }
   } catch (error) {
     hideLoader();
     console.error(error);

@@ -5,13 +5,13 @@ import { showLoader, hideLoader } from './loader';
 const apiKey = '55e390226d2f3f6feba5afe684a5a044';
 const BASE_API_URL = 'https://api.themoviedb.org/3/';
 
-export async function fetchMovies(query = '', page = 1) {
+export async function fetchMovies(query, currentPage) {
   showLoader();
-  const searchQuery = query.trim();
+  const searchQuery = query ? query.split(' ').join('+') : '';
   const params = new URLSearchParams({
     api_key: apiKey,
     query: searchQuery,
-    page: page,
+    page: currentPage,
   });
 
   const urlSearch = `${BASE_API_URL}search/movie?${params}`;
