@@ -18,6 +18,9 @@ export function addToQueue(movieData) {
     savedMovies.push(movieData);
     localStorage.setItem('movieQueue', JSON.stringify(savedMovies));
     Notify.success(`Added movie "${movieData.title}" to queue list.`);
+
+  
+
   } else {
     Notify.failure(`Movie "${movieData.title}" is already in queue list.`);
   }
@@ -32,17 +35,16 @@ export function removeFromQueue(movieData) {
   const movieId = movieData.id;
   const isMovieInQueue = savedMovies.some(movieInQueue => movieInQueue.id === movieId);
 
-
   if (isMovieInQueue) {
     const movieIndex = savedMovies.findIndex(movie => movie.id === movieId);
     savedMovies.splice(movieIndex, 1);
     localStorage.setItem('movieQueue', JSON.stringify(savedMovies));
     Notify.success(`Removed movie "${movieData.title}" from queue list.`);
-
-    // Zaktualizuj przycisk w modalu na "Add to Queue"
-    const watchlistButton = document.querySelector('#watchlistButton');
-    if (watchlistButton) {
-      watchlistButton.textContent = 'Add to Queue';
+    
+    // delete movie card after removing from queue
+    const movieCard = document.querySelector(`.gallery__list-item[data-movieid="${movieId}"]`);
+    if (movieCard) {
+      movieCard.remove();
     }
   } else {
     Notify.failure(`Movie "${movieData.title}" is not in the queue.`);
